@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="h-screen w-full flex items-center justify-center bg-green-900"> <!--Forces a full viewport height-->
 
-        <div class="w-4/5 h-4/5 flex flex-col items-center text-black rounded-[24px] shadow-xl p-8 bg-gray-50">
+        <div class="w-4/5 h-4/5 flex flex-col items-center text-black rounded-[24px] shadow-xl p-8 bg-white">
 
             <!-- Logo -->
             <img

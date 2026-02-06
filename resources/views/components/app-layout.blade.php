@@ -31,7 +31,7 @@
 
     <title>{{ $title ?? config('app.name') }}</title>
 </head>
-<body class="font-sans bg-gray-100 h-screen flex">
+<body class="font-sans bg-gray-100 h-screen">
 
     {{ $slot }}
 
