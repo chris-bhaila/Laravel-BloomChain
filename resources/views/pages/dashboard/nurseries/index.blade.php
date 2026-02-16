@@ -4,7 +4,7 @@
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">My Nurseries 🌱</h1>
 
-            <a href="{{ route('nurseries.create') }}"
+            <a href="{{ route('dashboard.nurseries', ['page' => 'create']) }}"
                class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
                 + Add Nursery
             </a>
@@ -19,7 +19,8 @@
         @if($nurseries->count())
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($nurseries as $nursery)
-                    <div class="bg-white shadow rounded-xl p-5">
+                    <a href="{{ route('nursery.show', $nursery->id) }}"
+                        class="bg-white shadow rounded-xl p-5">
                         <h2 class="text-lg font-semibold">{{ $nursery->name }}</h2>
                         <p class="text-sm text-gray-600 mt-1">
                             {{ $nursery->location ?? 'No location' }}
@@ -33,7 +34,7 @@
                             <span>Plants: 0</span>
                             <span>{{ $nursery->created_at->format('d M Y') }}</span>
                         </div>
-                    </div>
+                    </a>
                 @endforeach
             </div>
         @else

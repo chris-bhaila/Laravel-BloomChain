@@ -12,8 +12,15 @@ class NurseryController extends Controller
     {
         $nurseries = Nursery::where('user_id', Auth::id())->get();
 
-        return view('nurseries.index', compact('nurseries'));
+        // Dashboard dynamic route expects data only, not view
+        if (request()->routeIs('dashboard.nurseries')) {
+            return ['nurseries' => $nurseries];
+        }
+
+        // Otherwise, standalone view (if ever needed)
+        return view('pages.dashboard.nurseries.index', compact('nurseries'));
     }
+
 
     public function create()
     {
@@ -35,6 +42,8 @@ class NurseryController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('nurseries.index')->with('success','Nursery added!');
+        return redirect()->route('dashboard.nurseries', ['page' => 'index'])
+            ->with('success','Nursery added!');
+
     }
 }

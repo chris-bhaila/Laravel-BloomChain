@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Plant;
 
 class Nursery extends Model
 {
@@ -18,4 +19,9 @@ class Nursery extends Model
         'contact_email',
         'is_active',
     ];
+
+    public function plants()
+    {
+        return $this->hasMany(Plant::class);
+    }
 }

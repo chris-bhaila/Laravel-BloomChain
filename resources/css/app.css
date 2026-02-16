@@ -44,3 +44,9 @@
 .mary-table-pagination button {
     @apply cursor-pointer
 }
+
+@layer utilities {
+  .no-spinner {
+    -moz-appearance: textfield;
+  }
+}

@@ -118,7 +118,7 @@
 
             <!--Add Nursery-->
             <a
-                href="{{ route('nurseries.create') }}"
+                href="{{ route('dashboard.nurseries', ['page' => 'create']) }}"
                 :class="sidebarOpen ? 'justify-start' : 'justify-center'"
                 class="flex items-center gap-3 px-4 py-2 rounded hover:bg-gray-700 transition"
             >
@@ -155,7 +155,7 @@
 
             <!--List Nursery-->
             <a
-                href="{{ route('nurseries.index') }}"
+                href="{{ route('dashboard.nurseries', ['page' => 'index']) }}"
                 :class="sidebarOpen ? 'justify-start' : 'justify-center'"
                 class="flex items-center gap-3 px-4 py-2 rounded hover:bg-gray-700 transition"
             >
@@ -208,15 +208,11 @@
 
         <!-- Main content -->
         <main class="flex-1 overflow-auto p-6 bg-gray-100">
-
             {{-- Load page dynamically --}}
-            @if(view()->exists("pages.dashboard.$page"))
-                @include("pages.dashboard.$page")
-            @else
-                <div class="text-center text-red-500">Page not found</div>
-            @endif
+            @include('pages.dashboard.' . $page, ['nurseries' => $nurseries ?? null])
 
         </main>
+
     </div>
 
 </x-app-layout>
