@@ -44,10 +44,6 @@ Route::middleware('auth')->match(['get', 'post'], '/dashboard/nurseries/{page?}'
     return view('pages.dashboard.dashboard', $data);
 })->name('dashboard.nurseries');
 
-Route::get('/dashboard/nurseries/index/{nursery}',
-    [NurseryController::class, 'show']
-)->name('nursery.show');
-
 Route::get('/dashboard/nurseries/index/{nursery}/plants/create',
     [PlantController::class, 'create']
 )->name('plants.create');
@@ -55,7 +51,6 @@ Route::get('/dashboard/nurseries/index/{nursery}/plants/create',
 Route::post('/dashboard/nurseries/index/{nursery}/plants',
     [PlantController::class, 'store']
 )->name('plants.store');
-
 
 Route::get('/dashboard/nurseries/index/{nursery}', function (Nursery $nursery) {
     return view('pages.dashboard.nurseries.nursery', compact('nursery'));
