@@ -10,7 +10,9 @@ class NurseryController extends Controller
 {
     public function index()
     {
-        $nurseries = Nursery::where('user_id', Auth::id())->get();
+        $nurseries = Nursery::where('user_id', Auth::id())
+            ->withCount('plants') // adds a 'plant_count' property to each nursery
+            ->get();
 
         // Dashboard dynamic route expects data only, not view
         if (request()->routeIs('dashboard.nurseries')) {

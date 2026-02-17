@@ -20,7 +20,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($nurseries as $nursery)
                     <a href="{{ route('nursery.show', $nursery->id) }}"
-                        class="bg-white shadow rounded-xl p-5">
+                        class="bg-white shadow rounded-xl p-5 hover:shadow-[0_6px_25px_rgba(0,0,0,0.5)] transition-shadow duration-300">
                         <h2 class="text-lg font-semibold">{{ $nursery->name }}</h2>
                         <p class="text-sm text-gray-600 mt-1">
                             {{ $nursery->location ?? 'No location' }}
@@ -31,7 +31,7 @@
                         </p>
 
                         <div class="mt-4 flex justify-between text-sm text-gray-500">
-                            <span>Plants: 0</span>
+                            <span>Plants: {{ $nursery->plants_count ?? '0' }}</span>
                             <span>{{ $nursery->created_at->format('d M Y') }}</span>
                         </div>
                     </a>
