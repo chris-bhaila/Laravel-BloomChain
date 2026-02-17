@@ -21,6 +21,7 @@ class Plant extends Model
         'scientific_name',
         'sunlight_requirement',
         'water_requirement',
+        'image',
     ];
 
     public function Nursery()

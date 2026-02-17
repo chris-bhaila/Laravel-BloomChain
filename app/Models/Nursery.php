@@ -22,6 +22,10 @@ class Nursery extends Model
         'is_active',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     public function plants()
     {
         return $this->hasMany(Plant::class);

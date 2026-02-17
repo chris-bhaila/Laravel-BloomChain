@@ -212,7 +212,7 @@
 
         <!-- Main content -->
         <main class="flex-1 overflow-auto p-6 bg-gray-100">
-            <div class="max-w-7xl mx-auto py-10 px-4">
+            <div class="max-w-8xl mx-auto py-10 px-4">
                 @include('pages.dashboard.' . $page, [
                     'nurseries' => $nurseries ?? null,
                     'nursery'   => $nursery ?? null,

@@ -29,12 +29,6 @@ Route::middleware('auth')->group(function () {
         return view('pages.dashboard.dashboard', ['page' => $page]);
     })->name('dashboard');
 
-
-    /*
-    | Nursery Routes
-    | Order matters — specific routes must come before the wildcard
-    */
-
     // Secure file viewing
     Route::get('/nursery/file/{filename}', [NurseryController::class, 'viewFile'])
         ->name('nursery.file');
@@ -46,7 +40,7 @@ Route::middleware('auth')->group(function () {
     // Show a single nursery (must be before the {page?} wildcard)
     Route::get('/dashboard/nurseries/show/{nursery}', function (Nursery $nursery) {
         // Ensure the authenticated user owns this nursery
-        if ($nursery->user_id !== auth()->id()) {
+        if ($nursery->user_id !== Auth::id()) {
             abort(403);
         }
 
@@ -64,10 +58,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/dashboard/nurseries/show/{nursery}/plants', [PlantController::class, 'store'])
         ->name('plants.store');
 
+    // Secure file viewing for each plant
+    Route::get('/plants/file/{filename}', [PlantController::class, 'viewFile'])
+        ->name('plants.file');
 
-    /*
-    | Nursery wildcard (index / create) — must come LAST
-    */
+    //Nursery wildcard (index / create)*/
     Route::match(['get', 'post'], '/dashboard/nurseries/{page?}', function ($page = 'index') {
         $allowedPages = ['index', 'create'];
 
@@ -87,14 +82,11 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard.nurseries');
 
 
-    /*
-    | Logout
-    */
+    //Logout
     Route::post('/logout', function () {
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
         return redirect()->route('login');
     })->name('logout');
-
 });
