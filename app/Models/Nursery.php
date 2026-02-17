@@ -17,6 +17,8 @@ class Nursery extends Model
         'description',
         'contact_phone',
         'contact_email',
+        'reg_cer',
+        'pan_cer',
         'is_active',
     ];
 

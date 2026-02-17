@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Nike Air Max 270",
+      "sku": "NK-AM-270",
+      "price": 69.99,
+      "quantity": 1,
+      "image": "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/skwgyqrbfzhu6uyeh0gg/air-max-270-shoes-2V5C4p.png"
+    },
+    {
+      "id": 2,
+      "name": "Adidas Ultraboost 22",
+      "sku": "AD-UB-22",
+      "price": 69.69,
+      "quantity": 2,
+      "image": "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/fbaf991a78bc4896a3e9ad7800abcec6_9366/Ultraboost_22_Shoes_Black_GZ0127_01_standard.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Puma RS-X³",
+      "sku": "PM-RSX-03",
+      "price": 99.99,
+      "quantity": 1,
+      "image": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1350,h_1350/global/373308/02/sv01/fnd/IND/fmt/png/RS-X%C2%B3-Puzzle-Shoes"
+    }
+  ],
+  "settings": {
+    "tax_rate": 0.10,
+    "shipping_cost": 10.00,
+    "free_shipping_threshold": 100.00,
+    "currency": "USD"
+  }
+} 

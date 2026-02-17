@@ -1,0 +1,40 @@
+{
+  "City": [
+    {
+      "name": "Kathmandu"
+    },
+    {
+      "name": "Pokhara"
+    },
+    {
+      "name": "Biratnagar"
+    },
+    {
+      "name": "Birgunj"
+    },
+    {
+      "name": "Butwal"
+    },
+    {
+      "name": "Hetauda"
+    },
+    {
+      "name": "Dharan"
+    },
+    {
+      "name": "Itahari"
+    },
+    {
+      "name": "Nepalgunj"
+    },
+    {
+      "name": "Dhangadi"
+    },
+    {
+      "name": "Bhairahawa"
+    },
+    {
+      "name": "Janakpur"
+    }      
+  ]
+} 

@@ -1,0 +1,59 @@
+{
+    "discounts": [
+        {
+            "use_count": 30,
+            "expiryDate": "2024-12-31",
+            "maximumAmount": 100.00,
+            "maximumUse": 50,
+            "validCategory": ["full boot"],
+            "validArticle": "all",
+            "discountPercentage": 50,
+            "discountCode": "WALK50",
+            "status": "Active"
+        },
+        {
+            "use_count": 25,
+            "expiryDate": "2024-06-30",
+            "maximumAmount": 75.00,
+            "maximumUse": 100,
+            "validCategory": ["half boot"],
+            "validArticle": "all",
+            "discountPercentage": 10,
+            "discountCode": "FAGA",
+            "status": "Completed"
+        },
+        {
+            "use_count": 15,
+            "expiryDate": "2024-09-15",
+            "maximumAmount": 50.00,
+            "maximumUse": 75,
+            "validCategory": ["half boot "],
+            "validArticle": "all",
+            "discountPercentage": 10,
+            "discountCode": "FOHI",
+            "status": "Completed"
+        },
+        {
+            "use_count": 0,
+            "discountCode": null,
+            "discountPercentage": null,
+            "maximumUse": null,
+            "maximumAmount": null,
+            "expiryDate": null,
+            "validCategory": null,
+            "validArticle": null,
+            "status": "Active"
+        },
+        {
+            "use_count": 0,
+            "discountCode": null,
+            "discountPercentage": null,
+            "maximumUse": null,
+            "maximumAmount": null,
+            "expiryDate": null,
+            "validCategory": null,
+            "validArticle": null,
+            "status": "Active"
+        }
+    ]
+}

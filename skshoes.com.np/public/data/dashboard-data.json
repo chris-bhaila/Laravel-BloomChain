@@ -1,0 +1,204 @@
+{
+    "monthlyData": {
+        "2024": {
+            "1": 280000, "2": 295000, "3": 310000,
+            "4": 285000, "5": 275000, "6": 265000,
+            "7": 290000, "8": 305000, "9": 320000,
+            "10": 335000, "11": 350000, "12": 375000
+        },
+        "2023": {
+            "1": 250000, "2": 265000, "3": 280000,
+            "4": 255000, "5": 245000, "6": 235000,
+            "7": 260000, "8": 275000, "9": 290000,
+            "10": 305000, "11": 320000, "12": 345000
+        }
+    },
+    "yearlyData": {
+        "2024": 3685000,
+        "2023": 3325000
+    },
+    "statsByYear": {
+        "2024": {
+            "monthly": {
+                "sales": {
+                    "total": 2850000,
+                    "items": 725,
+                    "percentage": 85
+                },
+                "inProgress": {
+                    "total": 450000,
+                    "items": 125,
+                    "percentage": 10
+                },
+                "returns": {
+                    "total": 180000,
+                    "items": 45,
+                    "percentage": 5
+                }
+            },
+            "yearly": {
+                "sales": {
+                    "total": 34200000,
+                    "items": 8700,
+                    "percentage": 82
+                },
+                "inProgress": {
+                    "total": 5400000,
+                    "items": 1500,
+                    "percentage": 13
+                },
+                "returns": {
+                    "total": 2160000,
+                    "items": 540,
+                    "percentage": 5
+                }
+            }
+        },
+        "2023": {
+            "monthly": {
+                "sales": {
+                    "total": 2650000,
+                    "items": 680,
+                    "percentage": 83
+                },
+                "inProgress": {
+                    "total": 420000,
+                    "items": 115,
+                    "percentage": 12
+                },
+                "returns": {
+                    "total": 160000,
+                    "items": 40,
+                    "percentage": 5
+                }
+            },
+            "yearly": {
+                "sales": {
+                    "total": 31800000,
+                    "items": 8160,
+                    "percentage": 80
+                },
+                "inProgress": {
+                    "total": 5040000,
+                    "items": 1380,
+                    "percentage": 15
+                },
+                "returns": {
+                    "total": 1920000,
+                    "items": 480,
+                    "percentage": 5
+                }
+            }
+        }
+    },
+    "topProductsByPeriod": {
+        "2024": {
+            "monthly": [
+                {
+                    "name": "Chelsea Boot",
+                    "percentage": 35,
+                    "sales": 254,
+                    "revenue": 1289000
+                },
+                {
+                    "name": "Oxford Shoes",
+                    "percentage": 28,
+                    "sales": 198,
+                    "revenue": 990000
+                },
+                {
+                    "name": "Sneakers",
+                    "percentage": 22,
+                    "sales": 156,
+                    "revenue": 780000
+                },
+                {
+                    "name": "Loafers",
+                    "percentage": 15,
+                    "sales": 117,
+                    "revenue": 585000
+                }
+            ],
+            "yearly": [
+                {
+                    "name": "Chelsea Boot",
+                    "percentage": 32,
+                    "sales": 2784,
+                    "revenue": 13920000
+                },
+                {
+                    "name": "Oxford Shoes",
+                    "percentage": 30,
+                    "sales": 2610,
+                    "revenue": 13050000
+                },
+                {
+                    "name": "Sneakers",
+                    "percentage": 25,
+                    "sales": 2175,
+                    "revenue": 10875000
+                },
+                {
+                    "name": "Loafers",
+                    "percentage": 13,
+                    "sales": 1131,
+                    "revenue": 5655000
+                }
+            ]
+        },
+        "2023": {
+            "monthly": [
+                {
+                    "name": "Chelsea Boot",
+                    "percentage": 33,
+                    "sales": 224,
+                    "revenue": 1120000
+                },
+                {
+                    "name": "Oxford Shoes",
+                    "percentage": 29,
+                    "sales": 197,
+                    "revenue": 985000
+                },
+                {
+                    "name": "Sneakers",
+                    "percentage": 23,
+                    "sales": 156,
+                    "revenue": 780000
+                },
+                {
+                    "name": "Loafers",
+                    "percentage": 15,
+                    "sales": 102,
+                    "revenue": 510000
+                }
+            ],
+            "yearly": [
+                {
+                    "name": "Chelsea Boot",
+                    "percentage": 31,
+                    "sales": 2529,
+                    "revenue": 12645000
+                },
+                {
+                    "name": "Oxford Shoes",
+                    "percentage": 29,
+                    "sales": 2366,
+                    "revenue": 11830000
+                },
+                {
+                    "name": "Sneakers",
+                    "percentage": 24,
+                    "sales": 1958,
+                    "revenue": 9790000
+                },
+                {
+                    "name": "Loafers",
+                    "percentage": 16,
+                    "sales": 1306,
+                    "revenue": 6530000
+                }
+            ]
+        }
+    }
+} 

@@ -5,37 +5,28 @@
     <div x-data="{ sidebarOpen: true }" class="flex h-screen">
 
         <!-- Sidebar -->
-        <aside
+        <aside x-data="sidebar()"
             :class="sidebarOpen ? 'w-64' : 'w-16'"
-            class="bg-black text-white flex flex-col transition-all duration-300"
+            class="bg-black text-white flex flex-col transition-all duration-300 overflow-hidden"
         >
             <!-- Logo -->
-            <div class="p-4 text-center">
+            <div class="relative flex items-center justify-center h-14">
+
                 <!-- Expanded -->
-                <div
-                    x-show="sidebarOpen"
-                    x-transition
-                    class="flex justify-center"
+                <img
+                    src="{{ asset('images/BloomChainText.png') }}"
+                    alt="Logo"
+                    :class="sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'"
+                    class="absolute w-45 object-contain transition-opacity duration-300"
                 >
-                    <img
-                        src="{{ asset('images/BloomChainText.png') }}"
-                        alt="Logo"
-                        class="w-45"
-                    >
-                </div>
 
                 <!-- Collapsed -->
-                <div
-                    x-show="!sidebarOpen"
-                    x-transition
-                    class="text-2xl font-bold"
+                <img
+                    src="{{ asset('images/BloomChainLogo.png') }}"
+                    alt="Logo"
+                    :class="!sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'"
+                    class="absolute w-8 object-contain transition-opacity duration-300"
                 >
-                    <img
-                        src="{{ asset('images/BloomChainLogo.png') }}"
-                        alt="Logo"
-                        class="w-32"
-                    >
-                </div>
             </div>
 
             <!-- Navigation -->
@@ -196,11 +187,24 @@
 
             <!-- Toggle -->
             <div class="p-4 border-t border-gray-700">
-                <button
+                <button @click="toggle()"
                     @click="sidebarOpen = !sidebarOpen"
-                    class="w-full bg-blue-600 py-2 rounded"
+                    class="flex items-center justify-center w-full bg-blue-600 py-2 rounded"
                 >
-                    Toggle
+                    <svg
+                        :class="{'rotate-180': sidebarOpen, 'rotate-0': !sidebarOpen}"
+                        class="w-6 h-6 transition-transform dutation-600"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                    >
+                    <path stroke-linecap="roung" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+
+                    <span x-show="sidebarOpen" x-transition class="ml-2">
+                        Toggle
+                    </span>
                 </button>
             </div>
         </aside>
@@ -208,11 +212,26 @@
 
         <!-- Main content -->
         <main class="flex-1 overflow-auto p-6 bg-gray-100">
-            {{-- Load page dynamically --}}
-            @include('pages.dashboard.' . $page, ['nurseries' => $nurseries ?? null])
-
+            <div class="max-w-7xl mx-auto py-10 px-4">
+                @include('pages.dashboard.' . $page, [
+                    'nurseries' => $nurseries ?? null,
+                    'nursery'   => $nursery ?? null,
+                ])
+            </div>
         </main>
-
     </div>
 
+<!--This script ensures that the sidebar doesn't automatically open when switching to a different section-->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('sidebar', () => ({
+                sidebarOpen: localStorage.getItem('sidebarOpen') === 'true' || false,
+
+                toggle() {
+                    this.sidebarOpen = !this.sidebarOpen;
+                    localStorage.setItem('sidebarOpen', this.sidebarOpen);
+                }
+            }))
+        })
+    </script>
 </x-app-layout>

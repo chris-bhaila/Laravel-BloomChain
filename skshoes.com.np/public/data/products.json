@@ -1,0 +1,97 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "articleNumber": "MAIN_TEST",
+      "productName": "Test Demo Shoes",
+      "category": "lol",
+      "description": "High-quality leather shoe with durable construction and premium materials. Perfect for both work and casual wear.",
+      "basePrice": null,
+      "video": "assets/videos/1.mp4",
+      "images": [
+        {
+          "url": "assets/images/products/1.jpg",
+          "alt": "Primary Image",
+          "slot": 1
+        },
+        {
+          "url": "assets/images/products/2.jpg",
+          "alt": "Image 2",
+          "slot": 2
+        },
+        {
+          "url": "assets/images/products/3.jpg",
+          "alt": "Image 3",
+          "slot": 3
+        }
+      ],
+      "boxes": [
+        {
+          "price": 3000,
+          "types": [
+            {
+              "name": "Toe",
+              "value": "Steel Toe"
+            },
+            {
+              "name": "Leather",
+              "value": "Pure Leather"
+            }
+          ]
+        },
+        {
+          "price": 2500,
+          "types": [
+            {
+              "name": "Toe",
+              "value": "Soft Toe"
+            },
+            {
+              "name": "Leather",
+              "value": "Microfiber"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "articleNumber": "BOOT_001",
+      "productName": "Classic Work Boot",
+      "category": "Work Boots",
+      "description": "Durable work boot designed for heavy-duty use. Features water-resistant materials and enhanced grip.",
+      "basePrice": 2500,
+      "video": "assets/videos/1.mp4",
+      "images": [
+        {
+          "url": "assets/images/products/1.jpg",
+          "alt": "Primary Image",
+          "slot": 1
+        },
+        {
+          "url": "assets/images/products/2.jpg",
+          "alt": "Image 2",
+          "slot": 2
+        }
+      ],
+      "boxes": []
+    },
+    {
+      "id": 3,
+      "articleNumber": "SHOE_003",
+      "productName": "Casual Sneaker",
+      "category": "Sneakers",
+      "description": "Comfortable everyday sneaker with modern design and cushioned sole.",
+      "basePrice": 1800,
+      "video": "assets/videos/1.mp4",
+      "images": [
+        {
+          "url": "assets/images/products/1.jpg",
+          "alt": "Primary Image",
+          "slot": 1
+        }
+      ],
+      "boxes": []
+    }
+  ]
+} 

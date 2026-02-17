@@ -13,7 +13,6 @@
 
     $user = Auth::user();
 @endphp
-<x-app-layout>
 <h1 class="text-2xl font-bold mb-4">Profile</h1>
 <div class="text-center">
     <p class="text-green-800 text-2xl uppercase tracking-widest mb-2.5">
@@ -22,10 +21,10 @@
 
     @if(Auth::user()->avatar)
         <img src="{{ Auth::user()->avatar }}"
-             class="w-30 h-30 rounded-full mx-auto mb-5 border-4 border-white-800 object-cover">
+            class="w-30 h-30 rounded-full mx-auto mb-5 border-4 border-white-800 object-cover">
     @else
         <div class="w-30 h-30 rounded-full mx-auto mb-5 bg-green-800
-                    flex items-center justify-center text-white text-5xl font-bold">
+                            flex items-center justify-center text-white text-5xl font-bold">
             {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
         </div>
     @endif
@@ -59,43 +58,40 @@
 
     <div class="bg-white p-6 rounded-xl shadow mb-2">
 
-    <h2 class="text-2xl font-bold mb-4">Edit Profile</h2>
+        <h2 class="text-2xl font-bold mb-4">Edit Profile</h2>
 
-    @if(session('success'))
-        <div class="mb-4 text-green-600">
-            {{ session('success') }}
-        </div>
-    @endif
+        @if(session('success'))
+            <div class="mb-4 text-green-600">
+                {{ session('success') }}
+            </div>
+        @endif
 
-    <form method="POST">
-        @csrf
+        <form method="POST">
+            @csrf
 
-        <div class="mb-4">
-            <label class="block mb-1">Name</label>
-            <input type="text" name="name"
-                   value="{{ old('name', $user->name) }}"
-                   class="w-full border rounded px-3 py-2">
-        </div>
+            <div class="mb-4">
+                <label class="block mb-1">Name</label>
+                <input type="text" name="name" value="{{ old('name', $user->name) }}"
+                    class="w-full border rounded px-3 py-2">
+            </div>
 
-        <div class="mb-4">
-            <label class="block mb-1">Email</label>
-            <input type="email" name="email"
-                   value="{{ old('email', $user->email) }}"
-                   class="w-full border rounded px-3 py-2">
-        </div>
+            <div class="mb-4">
+                <label class="block mb-1">Email</label>
+                <input type="email" name="email" value="{{ old('email', $user->email) }}"
+                    class="w-full border rounded px-3 py-2">
+            </div>
 
-        <div class="mb-4">
-            <label class="block mb-1">Address</label>
-            <input type="text" name="address"
-                   value="{{ old('address', $user->address) }}"
-                   class="w-full border rounded px-3 py-2">
-        </div>
+            <div class="mb-4">
+                <label class="block mb-1">Address</label>
+                <input type="text" name="address" value="{{ old('address', $user->address) }}"
+                    class="w-full border rounded px-3 py-2">
+            </div>
 
-        <button class="bg-black text-white px-4 py-2 rounded">
-            Save Changes
-        </button>
-    </form>
-</div>
+            <button class="bg-black text-white px-4 py-2 rounded">
+                Save Changes
+            </button>
+        </form>
+    </div>
 
     <form action="{{ route('logout') }}" method="POST">
         @csrf
@@ -104,5 +100,3 @@
             Logout
         </button>
     </form>
-</div>
-</x-app-layout>

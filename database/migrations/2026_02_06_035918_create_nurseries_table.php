@@ -21,10 +21,9 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('location')->nullable();
-
             $table->string('contact_phone')->nullable();
             $table->string('contact_email')->nullable();
-
+            
             $table->boolean('is_active')->default(true);
 
             $table->timestamps();
