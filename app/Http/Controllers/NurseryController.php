@@ -72,11 +72,11 @@ class NurseryController extends Controller
     {
         // Find the nursery that owns this file
         $nursery = Nursery::where('reg_cer', $filename)
-                        ->orWhere('pan_cer', $filename)
-                        ->firstOrFail();
+            ->orWhere('pan_cer', $filename)
+            ->firstOrFail();
 
         // Only allow the owner to view
-        if ($nursery->user_id !== auth()->id()) {
+        if ($nursery->user_id !== Auth::id()) {
             abort(403, 'Unauthorized access');
         }
 

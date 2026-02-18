@@ -13,7 +13,6 @@
 
     $user = Auth::user();
 @endphp
-<h1 class="text-2xl font-bold mb-4">Profile</h1>
 <div class="text-center">
     <p class="text-green-800 text-2xl uppercase tracking-widest mb-2.5">
         Welcome Back!

@@ -24,65 +24,52 @@ Route::get('/auth/google/callback', [GoogleController::class, 'callback'])
 
 Route::middleware('auth')->group(function () {
 
-    //General Dashboard
-    Route::match(['get', 'post'], '/dashboard/{page?}', function ($page = 'profile') {
-        return view('pages.dashboard.dashboard', ['page' => $page]);
-    })->name('dashboard');
-
-    // Secure file viewing
-    Route::get('/nursery/file/{filename}', [NurseryController::class, 'viewFile'])
-        ->name('nursery.file');
-
-    // Store a new nursery
+    // ✅ Nursery routes FIRST (before the dashboard wildcard)
     Route::post('/dashboard/nurseries/store', [NurseryController::class, 'store'])
         ->name('dashboard.nurseries.store');
 
-    // Show a single nursery (must be before the {page?} wildcard)
     Route::get('/dashboard/nurseries/show/{nursery}', function (Nursery $nursery) {
-        // Ensure the authenticated user owns this nursery
         if ($nursery->user_id !== Auth::id()) {
             abort(403);
         }
-
         return view('pages.dashboard.dashboard', [
             'page'    => 'nurseries.nursery',
             'nursery' => $nursery->load('plants'),
         ]);
     })->name('nursery.show');
 
-
-    //Plant Routes
     Route::get('/dashboard/nurseries/show/{nursery}/plants/create', [PlantController::class, 'create'])
         ->name('plants.create');
 
     Route::post('/dashboard/nurseries/show/{nursery}/plants', [PlantController::class, 'store'])
         ->name('plants.store');
 
-    // Secure file viewing for each plant
     Route::get('/plants/file/{filename}', [PlantController::class, 'viewFile'])
         ->name('plants.file');
 
-    //Nursery wildcard (index / create)*/
+    Route::get('/nursery/file/{filename}', [NurseryController::class, 'viewFile'])
+        ->name('nursery.file');
+
+    // ✅ Nursery wildcard BEFORE dashboard wildcard
     Route::match(['get', 'post'], '/dashboard/nurseries/{page?}', function ($page = 'index') {
         $allowedPages = ['index', 'create'];
-
         if (!in_array($page, $allowedPages)) {
             abort(404);
         }
-
         $data = ['page' => 'nurseries.' . $page];
-
         if ($page === 'index') {
             $controller = app(NurseryController::class);
             $response   = $controller->index();
             $data['nurseries'] = $response['nurseries'] ?? collect([]);
         }
-
         return view('pages.dashboard.dashboard', $data);
     })->name('dashboard.nurseries');
 
+    // ✅ Dashboard wildcard LAST
+    Route::match(['get', 'post'], '/dashboard/{page?}', function ($page = 'profile') {
+        return view('pages.dashboard.dashboard', ['page' => $page]);
+    })->name('dashboard');
 
-    //Logout
     Route::post('/logout', function () {
         Auth::logout();
         request()->session()->invalidate();
