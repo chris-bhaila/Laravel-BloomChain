@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -23,6 +25,9 @@ class User extends Authenticatable
         'address',
         'avatar',
         'google_id',
+        'phone',
+        'verification_status',
+        'subscription_type',
     ];
 
     /**
@@ -47,8 +52,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function nurseries()
+    public function nursery()
     {
-        return $this->hasMany(Nursery::class);
+        return $this->hasOne(Nursery::class);
+    }
+    public function getLoginSessions()
+    {
+        return DB::table('sessions')
+            ->where('user_id', $this->id)
+            ->orderBy('last_activity', 'desc')
+            ->get()
+            ->map(function ($session) {
+                return [
+                    'ip_address' => $session->ip_address,
+                    'user_agent' => $session->user_agent, // raw string, shows browser/device
+                    'last_activity' => Carbon::createFromTimestamp($session->last_activity)->toDateTimeString(),
+                    'session_id' => $session->id,
+                ];
+            });
     }
 }

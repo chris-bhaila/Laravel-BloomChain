@@ -14,19 +14,22 @@ return new class extends Migration
         Schema::create('nurseries', function (Blueprint $table) {
             $table->id();
 
+            // Add user_id foreign key and make it unique
             $table->foreignId('user_id')
-                  ->constrained()
-                  ->onDelete('cascade');
+                ->constrained()
+                ->onDelete('cascade');
 
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('location')->nullable();
             $table->string('contact_phone')->nullable();
             $table->string('contact_email')->nullable();
-            
             $table->boolean('is_active')->default(true);
 
             $table->timestamps();
+
+            // UNIQUE constraint to ensure one nursery per user
+            $table->unique('user_id');
         });
     }
 

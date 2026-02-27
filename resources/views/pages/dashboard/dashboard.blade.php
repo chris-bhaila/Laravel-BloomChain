@@ -1,334 +1,182 @@
-<!-- resources/views/pages/dashboard/dashboard.blade.php -->
+@php
+    use Illuminate\Support\Facades\Auth;
+    $user = Auth::user();
+    $nursery = Auth::user()->nursery;
+@endphp
 
-<x-app-layout title="Dashboard">
+<!--Profile verification-->
+@if ($user->verification_status === 'unverified')
+    <div
+        class="fade-up mb-4 sm:mt-1 w-full flex flex-wrap items-center justify-between bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-xl px-6 py-4 shadow-sm gap-4">
+        <div>
+            <h2 class="text-gray-900 font-bold text-lg leading-snug">
+                Verify Your Profile to Set Up Your Nursery
+            </h2>
+            <p class="text-gray-500 text-sm mt-1">
+                Complete your profile verification to create your nursery.
+            </p>
+        </div>
+        <button type="button" onclick="window.location='{{ route('verify') }}'"
+            class="flex-shrink-0 flex items-center gap-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-sm font-semibold px-5 py-3 rounded-lg transition-colors duration-150 whitespace-nowrap w-full sm:w-auto justify-center">
+            Verify your profile
+            <span class="text-lg leading-none">→</span>
+        </button>
+    </div>
+@elseif($nursery === null)
+    <div
+        class="fade-up mb-4 sm:mt-1 w-full flex flex-wrap items-center justify-between bg-gradient-to-r from-green-50 to-green-100 border border-green-200 rounded-xl px-6 py-4 shadow-sm gap-4">
+        <div>
+            <h2 class="text-gray-900 font-bold text-lg leading-snug">
+                Create your nursery to get started.
+            </h2>
+            <p class="text-gray-500 text-sm mt-1">
+                You’ll be able to add plants, manage inventory, and track all your nursery activities.
+            </p>
+        </div>
+        <button type="button" onclick="window.location='{{ route('nurseries.create') }}'"
+            class="flex-shrink-0 flex items-center gap-2 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white text-sm font-semibold px-5 py-3 rounded-lg transition-colors duration-150 whitespace-nowrap w-full sm:w-auto justify-center">
+            Create nursery
+            <span class="text-lg leading-none">→</span>
+        </button>
+    </div>
+@elseif($nursery->plants()->count() == 0)
+    <div
+        class="fade-up mb-4 sm:mt-1 w-full flex flex-wrap items-center justify-between bg-gradient-to-r from-green-50 to-green-100 border border-green-200 rounded-xl px-6 py-4 shadow-sm gap-4">
+        <div>
+            <h2 class="text-gray-900 font-bold text-lg leading-snug">
+                Add first plant to your nursery
+            </h2>
+            <p class="text-gray-500 text-sm mt-1">
+                You’ll be able to add plants, manage inventory, and track all your nursery activities.
+            </p>
+        </div>
+        <button type="button" onclick="window.location='{{ route('plants.create', $nursery->id) }}'"
+            class="flex-shrink-0 flex items-center gap-2 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white text-sm font-semibold px-5 py-3 rounded-lg transition-colors duration-150 whitespace-nowrap w-full sm:w-auto justify-center">
+            Add your first plant
+            <span class="text-lg leading-none">→</span>
+        </button>
+    </div>
+@endif
+<!--Header Bar-->
+<div
+    class="fade-up sm:mt-1 bg-gray-200 w-full flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-xl px-6 py-4">
 
-    <div x-data="dashboardApp()" class="flex h-screen">
+    {{-- Top on mobile: avatar + name/email --}}
+    <div class="flex items-center gap-2 w-full sm:w-auto sm:order-2 justify-start mb-2 lg:mb-0">
 
-        <!-- Mobile Backdrop Overlay -->
-        <div
-            x-show="mobileSidebarOpen"
-            x-transition:enter="transition-opacity ease-out duration-300"
-            x-transition:enter-start="opacity-0"
-            x-transition:enter-end="opacity-100"
-            x-transition:leave="transition-opacity ease-in duration-200"
-            x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-            @click="mobileSidebarOpen = false"
-            class="fixed inset-0 bg-black/40 z-30 lg:hidden"
-            style="display: none;">
+        <!-- Avatar Wrapper -->
+        <div class="relative">
+            @if ($user->avatar)
+                    <img src="{{ $user->avatar }}"
+                        class="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border-2 lg:border-gray-300">
+            @else
+                <div
+                    class="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-green-800 text-white flex items-center justify-center text-lg font-bold border-2 border-white">
+                    {{ strtoupper(substr($user->name, 0, 1)) }}
+                </div>
+            @endif
+
+            {{-- Verification Badge --}}
+            @if ($user->verification_status === 'unverified')
+                <span class="absolute -bottom-0 -right-0 bg-red-600 rounded-full p-0.5 sm:p-1 shadow-md"
+                    title="Unverified Account">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+                        <path d="m14.5 9.5-5 5" />
+                        <path d="m9.5 9.5 5 5" />
+                    </svg>
+                </span>
+            @elseif($user->verification_status === 'verified')
+                <span class="absolute -bottom-0 -right-0 bg-green-600 rounded-full p-0.5 sm:p-1 shadow-md"
+                    title="Verified Account">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+                        <path d="m9 12 2 2 4-4" />
+                    </svg>
+                </span>
+            @endif
         </div>
 
-        <!-- Sidebar -->
-        <aside
-            :class="[
-                mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
-                sidebarOpen ? 'lg:w-56' : 'lg:w-14',
-            ]"
-            class="fixed inset-y-0 left-0 z-40 w-64
-                   lg:relative lg:inset-auto lg:z-auto lg:flex-shrink-0
-                   bg-gray-200 text-white flex flex-col
-                   transition-all duration-300 overflow-hidden lg:rounded-lg lg:my-4 lg:ml-3">
-
-            <!-- Header: Logo + Toggle button -->
-            <div class="relative flex items-center h-14 px-3 shrink-0"
-                :class="sidebarOpen ? 'justify-between' : 'lg:space-between'">
-
-                <!-- Logo (expanded) -->
-                <img
-                    src="{{ asset('images/BloomChainText.png') }}"
-                    alt="Logo"
-                    x-show="sidebarOpen || mobileSidebarOpen"
-                    x-transition:enter="transition-opacity duration-200"
-                    x-transition:enter-start="opacity-0"
-                    x-transition:enter-end="opacity-100"
-                    x-transition:leave="transition-opacity duration-100"
-                    x-transition:leave-start="opacity-100"
-                    x-transition:leave-end="opacity-0"
-                    class="w-36 object-contain">
-
-                <!-- Logo (collapsed, desktop only) -->
-                <img
-                    src="{{ asset('images/BloomChainLogo.png') }}"
-                    alt="Logo"
-                    x-show="!sidebarOpen && !mobileSidebarOpen"
-                    class="hidden lg:block w-7 object-contain">
-
-                <!-- Desktop toggle button (expanded) -->
-                <button
-                    @click="toggleSidebar()"
-                    x-show="sidebarOpen"
-                    class="hidden lg:flex items-center justify-center w-7 h-7 rounded-md text-gray-500 hover:text-gray-800 hover:bg-gray-300 transition-colors shrink-0">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
-
-                <!-- Desktop toggle button (collapsed) -->
-                <button
-                    @click="toggleSidebar()"
-                    x-show="!sidebarOpen"
-                    class="hidden lg:flex items-center justify-center w-7 h-7 rounded-md text-gray-500 hover:text-gray-800 hover:bg-gray-300 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
-
-                <!-- Mobile close button -->
-                <button
-                    @click="mobileSidebarOpen = false"
-                    class="lg:hidden text-gray-500 hover:text-gray-700 p-1 rounded-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-
-            <!-- Navigation -->
-            <nav class="flex-1 px-2 space-y-1 mt-2 overflow-y-auto">
-
-                <h2
-                    x-show="sidebarOpen || mobileSidebarOpen"
-                    class="text-gray-400 text-xs font-semibold uppercase tracking-wider mx-2 mb-1">
-                    Menu
-                </h2>
-
-                <!-- Dashboard -->
-                <a
-                    href="{{ route('dashboard') }}"
-                    :class="[
-                        (sidebarOpen || mobileSidebarOpen) ? 'justify-start' : 'lg:justify-center lg:px-0',
-                        isActive('profile') ? 'text-black' : 'text-gray-500'
-                    ]"
-                    class="group flex items-center gap-3 px-4 py-2 rounded relative transition font-bold">
-
-                    <span
-                        :class="isActive('profile') ? 'bg-[#16714B]' : 'bg-transparent group-hover:bg-[#16714B]'"
-                        class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all">
+        <!-- Name and Email -->
+        <div class="min-w-0 truncate">
+            <p class="text-gray-800 font-semibold truncate flex items-center gap-2">
+                {{ $user->name }}
+                @if ($user->subscription_type === 'premium')
+                    <img width="20" height="20" class="mb-1 -ml-1"
+                        src="https://img.icons8.com/ios-filled/50/FAB005/crown.png" alt="crown"
+                        title="Premium Member" />
+                @elseif($user->subscription_type === 'general')
+                    <span class="bg-gray-400 rounded-md font-bold text-white px-2 text-xs -ml-1" title="General Member">
+                        Free
                     </span>
+                @endif
+            </p>
+            <p class="text-gray-500 text-sm truncate">{{ $user->email }}</p>
+        </div>
 
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        :class="isActive('profile') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
-                        class="w-6 h-6 shrink-0 transition-colors"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        viewBox="0 0 24 24">
-                        <rect width="7" height="9" x="3" y="3" rx="1" />
-                        <rect width="7" height="5" x="14" y="3" rx="1" />
-                        <rect width="7" height="9" x="14" y="12" rx="1" />
-                        <rect width="7" height="5" x="3" y="16" rx="1" />
-                    </svg>
-
-                    <span
-                        x-show="sidebarOpen || mobileSidebarOpen"
-                        x-transition
-                        :class="isActive('profile') ? 'text-black' : 'group-hover:text-black'"
-                        class="whitespace-nowrap transition-colors text-m">
-                        Dashboard
-                    </span>
-                </a>
-
-                <!-- Profile -->
-                <a
-                    href="{{ route('dashboard', ['page' => 'profile']) }}"
-                    :class="[
-                        (sidebarOpen || mobileSidebarOpen) ? 'justify-start' : 'lg:justify-center lg:px-0',
-                        isActive('profile') ? 'text-black' : 'text-gray-500'
-                    ]"
-                    class="group flex items-center gap-3 px-4 py-2 rounded relative transition font-bold">
-
-                    <span
-                        :class="isActive('profile') ? 'bg-[#16714B]' : 'bg-transparent group-hover:bg-[#16714B]'"
-                        class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all">
-                    </span>
-
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        :class="isActive('profile') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
-                        class="w-6 h-6 shrink-0 transition-all"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        viewBox="0 0 24 24">
-                        <path d="M2 21a8 8 0 0 1 10.821-7.487" />
-                        <path d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
-                        <circle cx="10" cy="8" r="5" />
-                    </svg>
-
-                    <span
-                        x-show="sidebarOpen || mobileSidebarOpen"
-                        x-transition
-                        :class="isActive('profile') ? 'text-black' : 'group-hover:text-black'"
-                        class="whitespace-nowrap transition-colors text-m">
-                        Profile
-                    </span>
-                </a>
-
-                <!-- Settings -->
-                <a
-                    href="{{ route('dashboard', ['page' => 'settings']) }}"
-                    :class="[
-                        (sidebarOpen || mobileSidebarOpen) ? 'justify-start' : 'lg:justify-center lg:px-0',
-                        isActive('settings') ? 'text-black' : 'text-gray-500'
-                    ]"
-                    class="group flex items-center gap-3 px-4 py-2 rounded relative transition font-bold">
-
-                    <span
-                        :class="isActive('settings') ? 'bg-[#16714B]' : 'bg-transparent group-hover:bg-[#16714B]'"
-                        class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all">
-                    </span>
-
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        :class="isActive('settings') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
-                        class="w-6 h-6 shrink-0 transition-all"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        viewBox="0 0 24 24">
-                        <path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
-                        <circle cx="12" cy="12" r="3" />
-                    </svg>
-
-                    <span
-                        x-show="sidebarOpen || mobileSidebarOpen"
-                        x-transition
-                        :class="isActive('settings') ? 'text-black' : 'group-hover:text-black'"
-                        class="whitespace-nowrap transition-colors text-m">
-                        Settings
-                    </span>
-                </a>
-
-                <!-- Add Nursery -->
-                <a
-                    href="{{ route('dashboard.nurseries', ['page' => 'create']) }}"
-                    :class="[
-                        (sidebarOpen || mobileSidebarOpen) ? 'justify-start' : 'lg:justify-center lg:px-0',
-                        isActive('nurseries.create') ? 'text-black' : 'text-gray-500'
-                    ]"
-                    class="group flex items-center gap-3 px-4 py-2 rounded relative transition font-bold">
-
-                    <span
-                        :class="isActive('nurseries.create') ? 'bg-[#16714B]' : 'bg-transparent group-hover:bg-[#16714B]'"
-                        class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all">
-                    </span>
-
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        :class="isActive('nurseries.create') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
-                        class="w-6 h-6 shrink-0 transition-colors"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        viewBox="0 0 24 24">
-                        <path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3" />
-                        <path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4" />
-                        <path d="M5 21h14" />
-                    </svg>
-
-                    <span
-                        x-show="sidebarOpen || mobileSidebarOpen"
-                        x-transition
-                        :class="isActive('nurseries.create') ? 'text-black' : 'group-hover:text-black'"
-                        class="whitespace-nowrap transition-colors text-m">
-                        Add Nursery
-                    </span>
-                </a>
-
-                <!-- List Nursery -->
-                <a
-                    href="{{ route('dashboard.nurseries') }}"
-                    :class="[
-                        (sidebarOpen || mobileSidebarOpen) ? 'justify-start' : 'lg:justify-center lg:px-0',
-                        isActive('nurseries.index') ? 'text-black' : 'text-gray-500'
-                    ]"
-                    class="group flex items-center gap-3 px-4 py-2 rounded relative transition font-bold">
-
-                    <span
-                        :class="isActive('nurseries.index') ? 'bg-[#16714B]' : 'bg-transparent group-hover:bg-[#16714B]'"
-                        class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all">
-                    </span>
-
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        :class="isActive('nurseries.index') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
-                        class="w-6 h-6 shrink-0 transition-colors"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        viewBox="0 0 24 24">
-                        <path d="M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1" />
-                        <path d="M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1" />
-                        <circle cx="12" cy="8" r="2" />
-                        <path d="M12 10v12" />
-                        <path d="M12 22c4.2 0 7-1.667 7-5-4.2 0-7 1.667-7 5Z" />
-                        <path d="M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z" />
-                    </svg>
-
-                    <span
-                        x-show="sidebarOpen || mobileSidebarOpen"
-                        x-transition
-                        :class="isActive('nurseries.index') ? 'text-black' : 'group-hover:text-black'"
-                        class="whitespace-nowrap transition-colors text-m">
-                        List Nursery
-                    </span>
-                </a>
-
-            </nav>
-        </aside>
-
-        <!-- Main content -->
-        <main class="flex-1 overflow-auto bg-white">
-
-            <!-- Mobile Top Bar -->
-            <div class="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-gray-200 bg-white sticky top-0 z-20">
-                <button
-                    @click="mobileSidebarOpen = true"
-                    class="text-gray-600 hover:text-gray-900 p-1 rounded-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-                <img src="{{ asset('images/BloomChainText.png') }}" alt="Logo" class="w-32 object-contain">
-            </div>
-
-            <div class="max-w-8xl mx-auto py-6 px-4 lg:py-10 lg:mt-4">
-                @include('pages.dashboard.' . $page, [
-                    'nurseries' => $nurseries ?? null,
-                    'nursery'   => $nursery ?? null,
-                ])
-            </div>
-        </main>
     </div>
 
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('dashboardApp', () => ({
-                sidebarOpen: localStorage.getItem('sidebarOpen') !== 'false',
-                mobileSidebarOpen: false,
-                currentPage: '{{ $page ?? "profile" }}',
+    {{-- Below on mobile: nursery name --}}
+    <div class="mt-2 sm:mt-0 sm:order-1">
+        @if ($nursery !== null)
+            <h1 class="text-2xl lg:text-4xl font-bold">{{ $nursery->name }}</h1>
+        @endif
+    </div>
 
-                toggleSidebar() {
-                    this.sidebarOpen = !this.sidebarOpen;
-                    localStorage.setItem('sidebarOpen', this.sidebarOpen);
-                },
+</div>
 
-                isActive(page) {
-                    return this.currentPage === page;
-                }
-            }))
-        })
-    </script>
+<!--Main Dashboard-->
+<div class="fade-up delay-1 mt-4 bg-gray-200 w-full flex flex-col sm:flex-row justify-between rounded-xl py-4">
+    <!-- Full Dashboard Container -->
+    <div class="w-full px-4 md:mt-4">
 
-</x-app-layout>
+        <!-- Dashboard Heading -->
+        <div class="w-full mb-4">
+            <h1 class="text-2xl font-bold">Dashboard</h1>
+        </div>
+
+        <!-- Dashboard Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Card 1 -->
+            <div class="bg-green-800 rounded-xl shadow-lg p-6" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;">
+                <h2 class="text-xl mb-3 text-white">Plants</h2>
+                <p class="text-white text-5xl sm:text-5xl lg:text-6xl">
+                    @if ($nursery !== null)
+                        @if ($nursery->plants()->count() > 0)
+                            {{ $nursery->plants()->count() }}
+                        @else
+                            0
+                        @endif
+                    @else
+                        0
+                    @endif
+                </p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white rounded-xl shadow p-6">
+                <h2 class="text-lg font-semibold mb-2">Nurseries</h2>
+                <p class="text-gray-500">Total nurseries: 3</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white rounded-xl shadow p-6">
+                <h2 class="text-lg font-semibold mb-2">Reviews</h2>
+                <p class="text-gray-500">Average rating: 4.5</p>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="bg-white rounded-xl shadow p-6">
+                <h2 class="text-lg font-semibold mb-2">Reviews</h2>
+                <p class="text-gray-500">Average rating: 4.5</p>
+            </div>
+        </div>
+
+    </div>
+</div>
