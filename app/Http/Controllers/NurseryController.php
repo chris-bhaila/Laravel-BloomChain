@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nursery;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +23,7 @@ class NurseryController extends Controller
 
     public function store(Request $request)
     {
+        $user = Auth::id();
         if (Auth::user()->nursery) {
             return redirect()->back()
                 ->with('error', 'You already have a nursery and cannot create another.');
@@ -44,12 +46,12 @@ class NurseryController extends Controller
         ]);
 
         $regCerFile = $request->file('reg-cer');
-        $regCerName = time() . '_reg.' . $regCerFile->getClientOriginalExtension();
-        $regCerFile->storeAs('nursery_priv_docs', $regCerName);
+        $regCerName = $user . '_reg_cer.' . $regCerFile->getClientOriginalExtension();
+        $regCerFile->storeAs($user, $regCerName, 'local');
 
         $panCerFile = $request->file('pan-cer');
-        $panCerName = time() . '_pan.' . $panCerFile->getClientOriginalExtension();
-        $panCerFile->storeAs('nursery_priv_docs', $panCerName);
+        $panCerName = $user . '_pan_cer.' . $panCerFile->getClientOriginalExtension();
+        $panCerFile->storeAs($user, $panCerName, 'local');
 
         Nursery::create([
             'user_id'       => Auth::id(),
@@ -68,20 +70,13 @@ class NurseryController extends Controller
 
     public function viewFile($filename)
     {
-        $nursery = Nursery::where('reg_cer', $filename)
-            ->orWhere('pan_cer', $filename)
-            ->firstOrFail();
+        $user = Auth::id();
+        $path = $user . '/' . $filename;
 
-        if ($nursery->user_id !== Auth::id()) {
-            abort(403, 'Unauthorized access');
+        if (!Storage::disk('local')->exists($path)) {
+            abort(404);
         }
 
-        $filePath = storage_path('app/private/nursery_priv_docs/' . $filename);
-
-        if (!file_exists($filePath)) {
-            abort(404, 'File not found');
-        }
-
-        return response()->file($filePath);
+        return response()->file(Storage::disk('local')->path($path));
     }
 }

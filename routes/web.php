@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\NurseryController;
 use App\Http\Controllers\PlantController;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EsewaController;
 use App\Models\Nursery;
 
 // Helper to return partial or full view depending on request type
@@ -52,8 +54,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/dashboard/nurseries/plants', [PlantController::class, 'store'])->name('plants.store');
 
     // File viewing
-    Route::get('/plants/file/{filename}', [PlantController::class, 'viewFile'])->name('plants.file');
-    Route::get('/nursery/file/{filename}', [NurseryController::class, 'viewFile'])->name('nursery.file');
+    Route::get('/file/{filename}', function ($filename) {
+        $userId = Auth::id();
+        $path = $userId . '/' . $filename;
+
+        if (!Storage::disk('local')->exists($path)) {
+            abort(404);
+        }
+
+        return response()->file(Storage::disk('local')->path($path));
+    })->name('file.view');
 
     // Settings
     Route::get('/dashboard/settings', function () {
@@ -71,18 +81,27 @@ Route::middleware('auth')->group(function () {
         return dashboardView('settings.security.loginHistory');
     })->name('settings.loginHistory');
 
+    Route::get('/dashboard/settings/purchasehistory', function () {
+        return dashboardView('settings.purchaseHistory');
+    })->name('purchaseHistory');
+
     // Subscription
     Route::get('/dashboard/payment/subscription', function () {
         return dashboardView('payment.subscription');
     })->name('subscription');
+
+    //eSewa Routes
+    Route::post('/esewa/initiate', [EsewaController::class, 'initiate'])->name('esewa.initiate');
+    Route::get('/esewa/verify',   [EsewaController::class, 'verify'])->name('esewa.verify');
 
     // Dashboard wildcard LAST
     Route::get('/dashboard/{page?}', function ($page = 'dashboard') {
         return dashboardView($page);
     })->name('dashboard');
 
-    Route::get('dashboard/payment/checkout', function(){
-        return dashboardView('payment.checkout');
+    Route::get('/dashboard/payment/checkout', function () {
+        $plan = request('plan', 'biennial');
+        return dashboardView('payment.checkout', ['plan' => $plan]);
     })->name('checkout');
 
     // Logout

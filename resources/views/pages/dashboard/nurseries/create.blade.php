@@ -1,6 +1,6 @@
-<h1 class="text-2xl font-bold mb-6">Add Nursery 🌿</h1>
+<h1 class="text-2xl font-bold mb-6 fade-up">Add Nursery 🌿</h1>
 
-<form method="POST" action="{{ route('dashboard.nurseries.store') }}" class="bg-white shadow rounded-xl p-6 space-y-5" enctype="multipart/form-data">
+<form method="POST" action="{{ route('dashboard.nurseries.store') }}" class="fade-up delay-1 bg-white shadow rounded-xl p-6 space-y-5" enctype="multipart/form-data">
     @csrf
 
     {{-- Nursery Name --}}

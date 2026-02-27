@@ -41,4 +41,11 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
 
+    'esewa' => [
+        'product_code' => env('ESEWA_PRODUCT_CODE'),
+        'secret_key'   => env('ESEWA_SECRET_KEY'),
+        'url'          => env('ESEWA_URL'),
+        'verify_url'   => env('ESEWA_VERIFY_URL'),
+    ],
+
 ];

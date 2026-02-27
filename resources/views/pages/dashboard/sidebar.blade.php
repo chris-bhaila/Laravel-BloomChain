@@ -42,12 +42,13 @@
         <aside
             :class="[
                 mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
-                sidebarOpen ? 'lg:w-56' : 'lg:w-14',
+                sidebarOpen ? 'lg:w-75' : 'lg:w-20',
             ]"
             class="fixed inset-y-0 left-0 z-40 w-64
                    lg:relative lg:inset-auto lg:z-auto lg:flex-shrink-0
-                   bg-gray-200 text-white flex flex-col
-                   transition-all duration-300 overflow-hidden lg:rounded-lg lg:my-4 lg:ml-3">
+                   bg-white border-r-2 text-white flex flex-col
+                   transition-all duration-300 overflow-hidden lg:rounded-2xl lg:my-4 lg:ml-3"
+                   style="box-shadow: -2px 0px 15px rgba(0,0,0,0.25);">
 
             <!-- Header: Logo + Toggle -->
             <div class="relative flex items-center h-14 px-3 shrink-0"
@@ -100,7 +101,7 @@
                         class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all"></span>
                     <svg xmlns="http://www.w3.org/2000/svg"
                         :class="isActive('dashboard') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
-                        class="w-6 h-6 shrink-0 transition-colors" fill="none" stroke="currentColor" stroke-width="2"
+                        class="w-7 h-7 shrink-0 transition-colors" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <rect width="7" height="9" x="3" y="3" rx="1" />
                         <rect width="7" height="5" x="14" y="3" rx="1" />
@@ -126,7 +127,7 @@
                         class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all"></span>
                     <svg xmlns="http://www.w3.org/2000/svg"
                         :class="isActive('profile') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
-                        class="w-6 h-6 shrink-0 transition-all" fill="none" stroke="currentColor" stroke-width="2"
+                        class="w-7 h-7 shrink-0 transition-all" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <path d="M2 21a8 8 0 0 1 10.821-7.487" />
                         <path d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
@@ -152,7 +153,7 @@
                             class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all"></span>
                         <svg xmlns="http://www.w3.org/2000/svg"
                             :class="isActive('nurseries.nursery') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
-                            class="w-6 h-6 shrink-0 transition-colors" fill="none" stroke="currentColor"
+                            class="w-7 h-7 shrink-0 transition-colors" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                             <path d="M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1" />
                             <path d="M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1" />
@@ -181,7 +182,7 @@
                         class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all"></span>
                     <svg xmlns="http://www.w3.org/2000/svg"
                         :class="isActive('settings') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
-                        class="w-6 h-6 shrink-0 transition-all" fill="none" stroke="currentColor"
+                        class="w-7 h-7 shrink-0 transition-all" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
                         <circle cx="12" cy="12" r="3" />
@@ -197,30 +198,32 @@
                 <div class="flex-1"></div>
 
                 <!-- Subscription -->
-                <a href="{{ route('subscription') }}"
-                    @click.prevent="navigate('{{ route('subscription') }}', 'payment.subscription')"
-                    :class="[
-                        (sidebarOpen || mobileSidebarOpen) ? 'justify-start' : 'lg:justify-center lg:px-0',
-                        isActive('subscription') ? 'text-black' : 'text-gray-500'
-                    ]"
-                    class="group flex items-center gap-3 px-4 py-2 rounded relative transition font-bold">
-                    <span :class="isActive('subscription') ? 'bg-[#16714B]' : 'bg-transparent group-hover:bg-[#16714B]'"
-                        class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all"></span>
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        :class="isActive('subscription') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
-                        class="w-6 h-6 shrink-0 transition-all" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <path d="M2 8h20v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" />
-                        <path d="M2 8l4-4h12l4 4" />
-                        <path d="M12 12v4" />
-                        <path d="M10 14h4" />
-                    </svg>
-                    <span x-show="sidebarOpen || mobileSidebarOpen" x-transition
-                        :class="isActive('subscription') ? 'text-black' : 'group-hover:text-black'"
-                        class="whitespace-nowrap transition-colors text-m">
-                        Subscription
-                    </span>
-                </a>
+                @if($user->verification_status === 'verified')
+                    <a href="{{ route('subscription') }}"
+                        @click.prevent="navigate('{{ route('subscription') }}', 'payment.subscription')"
+                        :class="[
+                            (sidebarOpen || mobileSidebarOpen) ? 'justify-start' : 'lg:justify-center lg:px-0',
+                            isActive('subscription') ? 'text-black' : 'text-gray-500'
+                        ]"
+                        class="group flex items-center gap-3 px-4 py-2 rounded relative transition font-bold">
+                        <span :class="isActive('subscription') ? 'bg-[#16714B]' : 'bg-transparent group-hover:bg-[#16714B]'"
+                            class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            :class="isActive('subscription') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
+                            class="w-7 h-7 shrink-0 transition-all" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M2 8h20v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" />
+                            <path d="M2 8l4-4h12l4 4" />
+                            <path d="M12 12v4" />
+                            <path d="M10 14h4" />
+                        </svg>
+                        <span x-show="sidebarOpen || mobileSidebarOpen" x-transition
+                            :class="isActive('subscription') ? 'text-black' : 'group-hover:text-black'"
+                            class="whitespace-nowrap transition-colors text-m">
+                            Subscription
+                        </span>
+                    </a>
+                @endif
 
                 <!-- Logout -->
                 <a href="#" onclick="event.preventDefault(); this.querySelector('form').submit();"
@@ -228,7 +231,7 @@
                     class="group flex items-center gap-3 px-4 py-2 rounded relative transition font-bold">
                     <span class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all group-hover:bg-[#16714B]"></span>
                     <svg xmlns="http://www.w3.org/2000/svg"
-                        class="w-6 h-6 shrink-0 text-gray-500 group-hover:text-[#16714B] transition-all"
+                        class="w-7 h-7 shrink-0 text-gray-500 group-hover:text-[#16714B] transition-all"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" viewBox="0 0 24 24">
                         <path d="m16 17 5-5-5-5" />
@@ -334,6 +337,12 @@
                 }
             }))
         })
+
+        window.addEventListener('pageshow', function(e){
+            if(e.persisted){
+                window.location.reload();
+            }
+        });
 
         // Handle browser back/forward buttons
         window.addEventListener('popstate', (e) => {

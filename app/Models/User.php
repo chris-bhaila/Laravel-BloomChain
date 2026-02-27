@@ -56,6 +56,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Nursery::class);
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
     public function getLoginSessions()
     {
         return DB::table('sessions')

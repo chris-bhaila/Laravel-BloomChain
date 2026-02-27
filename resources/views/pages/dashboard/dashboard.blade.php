@@ -7,7 +7,7 @@
 <!--Profile verification-->
 @if ($user->verification_status === 'unverified')
     <div
-        class="fade-up mb-4 sm:mt-1 w-full flex flex-wrap items-center justify-between bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-xl px-6 py-4 shadow-sm gap-4">
+        class="fade-up mb-4 sm:mt-1 w-full flex flex-wrap items-center justify-between bg-gradient-to-r from-red-50 to-red-100 border border-red-200 rounded-xl px-6 py-4 shadow-sm gap-4">
         <div>
             <h2 class="text-gray-900 font-bold text-lg leading-snug">
                 Verify Your Profile to Set Up Your Nursery
@@ -17,7 +17,7 @@
             </p>
         </div>
         <button type="button" onclick="window.location='{{ route('verify') }}'"
-            class="flex-shrink-0 flex items-center gap-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-sm font-semibold px-5 py-3 rounded-lg transition-colors duration-150 whitespace-nowrap w-full sm:w-auto justify-center">
+            class="flex-shrink-0 flex items-center gap-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white text-sm font-semibold px-5 py-3 rounded-lg transition-colors duration-150 whitespace-nowrap w-full sm:w-auto justify-center">
             Verify your profile
             <span class="text-lg leading-none">→</span>
         </button>

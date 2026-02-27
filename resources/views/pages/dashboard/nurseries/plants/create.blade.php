@@ -39,7 +39,8 @@
                 Category
             </label>
             <input type="text" name="category" value="{{ old('category') }}" placeholder="Indoor / Outdoor / Flowering / etc."
-                class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('category') border-red-500 @enderror">
+                class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('category') border-red-500 @enderror"
+                required>
             @error('category')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror
@@ -151,7 +152,7 @@
                 </svg>
             </label>
             <input type="file" name="plant_image" id="plant_image" class="hidden"
-                onchange="document.getElementById('plant-image-name').textContent = this.files[0]?.name || 'Choose file'" required>
+                onchange="document.getElementById('plant-image-name').textContent = this.files[0]?.name || 'Choose file'">
             @error('plant_image')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror

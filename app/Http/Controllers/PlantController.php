@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plant;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,7 @@ class PlantController extends Controller
 
     public function store(Request $request)
     {
+        $user = Auth::id();
         $nursery = Auth::user()->nursery;
 
         if (!$nursery) {
@@ -37,13 +39,13 @@ class PlantController extends Controller
         $request->validate([
             'name'                 => ['required', 'string', 'max:255', 'regex:/^[\pL\s\-]+$/u'],
             'description'          => ['nullable', 'string', 'max:1000'],
-            'plant_image'          => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'category'             => ['nullable', 'string', 'max:255', 'regex:/^[\pL\s\-]+$/u'],
-            'offer_price'          => ['nullable', 'numeric', 'min:0', 'max:999999'],
-            'selling_price'        => ['nullable', 'numeric', 'min:0', 'max:999999'],
-            'stock_quantity'       => ['nullable', 'integer', 'min:0', 'max:99999'],
-            'best_season'          => ['required', 'string', 'max:255', 'regex:/^[\pL\s\-]+$/u'],
-            'scientific_name'      => ['nullable', 'string', 'max:255', 'regex:/^[\pL\s\-\.]+$/u'],
+            'plant_image'          => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'category'             => ['required', 'string', 'max:255', 'regex:/^[\pL\s\-]+$/u'],
+            'offer_price'          => ['required', 'numeric', 'min:0', 'max:999999'],
+            'selling_price'        => ['required', 'numeric', 'min:0', 'max:999999'],
+            'stock_quantity'       => ['required', 'integer', 'min:0', 'max:99999'],
+            'best_season'          => ['nullable', 'string', 'max:255', 'regex:/^[\pL\s\-]+$/u'],
+            'scientific_name'      => ['required', 'string', 'max:255', 'regex:/^[\pL\s\-\.]+$/u'],
             'sunlight_requirement' => ['nullable', 'string', 'max:255'],
             'water_requirement'    => ['nullable', 'string', 'max:255'],
         ], [
@@ -53,15 +55,15 @@ class PlantController extends Controller
             'offer_price.min'       => 'Price cannot be negative.',
             'selling_price.min'     => 'Price cannot be negative.',
             'stock_quantity.min'    => 'Stock quantity cannot be negative.',
-            'best_season.regex'            => 'Season name may only contain letters, spaces, and hyphens.',
+            'best_season.regex'     => 'Season name may only contain letters, spaces, and hyphens.',
         ]);
 
         $plantImgName = null;
 
         if ($request->hasFile('plant_image')) {
             $file = $request->file('plant_image');
-            $plantImgName = time() . '_plant.' . $file->getClientOriginalExtension();
-            $file->storeAs('plant_images', $plantImgName);
+            $plantImgName = $user . '_' . time() . '_plant.' . $file->getClientOriginalExtension();
+            $file->storeAs($user, $plantImgName, 'local');
         }
 
         $nursery->plants()->create([
@@ -85,12 +87,13 @@ class PlantController extends Controller
 
     public function viewFile($filename)
     {
-        $filePath = storage_path('app/private/plant_images/' . $filename);
+        $user = Auth::id();
+        $path = $user . '/' . $filename;
 
-        if (!file_exists($filePath)) {
-            abort(404, 'File not found');
+        if (!Storage::disk('local')->exists($path)) {
+            abort(404);
         }
 
-        return response()->file($filePath);
+        return response()->file(Storage::disk('local')->path($path));
     }
 }
