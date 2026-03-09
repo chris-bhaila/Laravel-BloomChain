@@ -62,8 +62,8 @@ class PlantController extends Controller
 
         if ($request->hasFile('plant_image')) {
             $file = $request->file('plant_image');
-            $plantImgName = $user . '_' . time() . '_plant.' . $file->getClientOriginalExtension();
-            $file->storeAs($user, $plantImgName, 'local');
+            $plantImgName = time() . '_plant.' . $file->getClientOriginalExtension();
+            $file->storeAs('plants', $plantImgName, 'public');
         }
 
         $nursery->plants()->create([
@@ -83,17 +83,5 @@ class PlantController extends Controller
         return redirect()
             ->route('nursery.show')
             ->with('success', 'Plant added successfully!');
-    }
-
-    public function viewFile($filename)
-    {
-        $user = Auth::id();
-        $path = $user . '/' . $filename;
-
-        if (!Storage::disk('local')->exists($path)) {
-            abort(404);
-        }
-
-        return response()->file(Storage::disk('local')->path($path));
     }
 }

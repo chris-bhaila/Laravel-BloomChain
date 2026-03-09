@@ -42,13 +42,13 @@
                     <span class="font-bold text-gray-800">Rs. {{ number_format($t->amount) }}</span>
                 </div>
                 <div class="grid grid-cols-2 gap-y-2 text-gray-600">
-                    <span class="font-medium text-gray-500">Purchase Date</span>
+                    <span class="font-semibold font-medium text-gray-500">Purchase Date</span>
                     <span>{{ $t->created_at->format('M d, Y') }}</span>
 
-                    <span class="font-medium text-gray-500">Payment Method</span>
+                    <span class="font-semibold font-medium text-gray-500">Payment Method</span>
                     <span>eSewa</span>
 
-                    <span class="font-medium text-gray-500">Expiration Date</span>
+                    <span class="font-semibold font-medium text-gray-500">Expiration Date</span>
                     <span>{{ $t->renewal_at->format('M d, Y') }}</span>
                 </div>
             </div>

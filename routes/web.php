@@ -24,7 +24,10 @@ function dashboardView(string $page, array $data = [])
 }
 
 // Public Routes
-Route::get('/', fn() => view('login'))->name('login');
+Route::get('/', function (){
+    $nurseries = Nursery::with('plants')->get();
+    return view('login', compact('nurseries'));
+})->name('login');
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('google.callback');
 

@@ -49,7 +49,7 @@
 
                 <div class="flex justify-center mb-3">
                     @if($plant->image)
-                        <img src="{{ route('file.view', $plant->image) }}" alt="{{ $plant->name }}"
+                        <img src="{{ asset('storage/plants/' . $plant->image) }}" alt="{{ $plant->name }}"
                             class="w-32 h-32 object-cover rounded-lg">
                     @else
                         <div class="w-32 h-32 rounded-lg bg-gray-100 flex items-center justify-center">
