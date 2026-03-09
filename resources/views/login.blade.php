@@ -14,7 +14,7 @@
             {{-- ===================== --}}
             {{-- DESKTOP: Left Panel  --}}
             {{-- ===================== --}}
-            <div class="hidden md:flex md:w-2/3 relative overflow-hidden flex-col bg-green-950">
+            <div class="hidden md:flex md:w-[70%] relative overflow-hidden flex-col bg-green-950">
                 {{-- Faint bg image --}}
                 <div class="absolute inset-0 bg-cover bg-center opacity-20"
                     style="background-image: url('{{ asset('images/Login-bg-image.jpeg') }}');"></div>
@@ -45,9 +45,9 @@
                             <div class="flex gap-3 overflow-x-auto pb-1"
                                  style="scrollbar-width: none; -ms-overflow-style: none;">
                                 @foreach($nursery->plants as $plant)
-                                    <div class="shrink-0 w-40 bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden ring-1 ring-white/15 hover:ring-green-300/40 hover:bg-white/15 transition-all duration-300 cursor-pointer">
+                                    <div class="shrink-0 w-80 bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden ring-1 ring-white/15 hover:ring-green-300/40 hover:bg-white/15 transition-all duration-300 cursor-pointer">
                                         {{-- Image --}}
-                                        <div class="h-28 bg-green-800/30">
+                                        <div class="h-48 bg-green-800/30">
                                             @if($plant->image)
                                                 <img src="{{ asset('storage/plants/' . $plant->image) }}"
                                                      alt="{{ $plant->name }}"
@@ -64,20 +64,20 @@
                                         </div>
                                         {{-- Info --}}
                                         <div class="p-2.5">
-                                            <p class="text-white text-[12px] font-semibold truncate">{{ $plant->name }}</p>
-                                            <p class="text-green-300/50 text-[10px] italic truncate mb-1.5">({{ $plant->scientific_name }})</p>
+                                            <p class="text-white text-lg font-semibold truncate">{{ $plant->name }}</p>
+                                            <p class="text-green-300/50 text-sm italic truncate mb-1.5">({{ $plant->scientific_name }})</p>
                                             <div class="flex flex-wrap gap-1 mb-1.5">
                                                 @if($plant->location)
-                                                    <span class="text-[9px] bg-green-900/50 text-green-300 rounded-full px-1.5 py-0.5">{{ $plant->location }}</span>
+                                                    <span class="text-md bg-green-900/50 text-green-300 rounded-full px-1.5 py-0.5">{{ $plant->location }}</span>
                                                 @endif
                                                 @if($plant->category)
-                                                    <span class="text-[9px] bg-green-900/50 text-green-300 rounded-full px-1.5 py-0.5">{{ $plant->category }}</span>
+                                                    <span class="text-md bg-green-900/50 text-green-300 rounded-full px-1.5 py-0.5">{{ $plant->category }}</span>
                                                 @endif
                                                 @if($plant->best_season)
-                                                    <span class="text-[9px] bg-green-900/50 text-green-300 rounded-full px-1.5 py-0.5">{{ $plant->best_season }}</span>
+                                                    <span class="text-md bg-green-900/50 text-green-300 rounded-full px-1.5 py-0.5">{{ $plant->best_season }}</span>
                                                 @endif
                                             </div>
-                                            <p class="text-green-300 text-[12px] font-semibold">Rs. {{ $plant->offer_price }}</p>
+                                            <p class="text-green-300 text-md font-semibold">Rs. {{ $plant->offer_price }}</p>
                                         </div>
                                     </div>
                                 @endforeach
@@ -163,7 +163,7 @@
             {{-- ===================== --}}
             {{-- RIGHT: Login Panel   --}}
             {{-- ===================== --}}
-            <div class="w-full md:w-1/3 flex-1 relative flex flex-col items-center justify-center px-8 py-6 md:px-10 md:py-12 bg-white/95">
+            <div class="w-full md:w-[30%] flex-1 relative flex flex-col items-center justify-center px-8 py-6 md:px-10 md:py-12 bg-white/95">
 
                 {{-- Top accent line --}}
                 <div class="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-green-500 via-green-300 to-green-500"></div>
