@@ -1,4 +1,3 @@
-// In vite.config.js
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
@@ -11,12 +10,4 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
-    // Add this if DaisyUI isn't working properly
-    css: {
-        postcss: {
-            plugins: [
-                require('@tailwindcss/postcss'),
-            ],
-        },
-    },
 });

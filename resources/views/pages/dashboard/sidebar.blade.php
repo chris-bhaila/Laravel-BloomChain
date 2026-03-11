@@ -96,8 +96,8 @@
 
                 {{-- Single toggle button for all states --}}
                 <button @click="toggleSidebar()"
-                    class="hidden lg:flex items-center justify-center w-7 h-7 rounded-md text-gray-500 hover:text-gray-800 hover:bg-gray-300 transition-colors shrink-0">
-                    <svg class="w-7 h-7 lg:mb-1" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    class="hidden lg:flex items-center justify-center w-7 h-7 rounded-md text-gray-500 hover:text-gray-800 hover:bg-gray-300 transition-colors shrink-0 cursor-pointer">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <rect x="3" y="3" width="18" height="18" rx="2" />
                         <path d="M9 3v18" />
                     </svg>
