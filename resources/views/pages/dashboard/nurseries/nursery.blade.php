@@ -25,7 +25,7 @@
 {{-- Certificates — belong to the nursery, not individual plants --}}
 <div class="fade-up delay-1 mb-8 px-6">
     <h2 class="text-lg sm:text-xl font-semibold mb-3">Certificates</h2>
-    <div class="flex flex-col sm:flex-row gap-4">
+    <div class="flex sm:flex-row gap-4 rounded-xl p-4 shadow-md">
         <div class="flex flex-col items-center">
             <p class="text-xs sm:text-sm text-gray-500 mb-1">Registration Certificate</p>
             <img src="{{ route('file.view', $nursery->reg_cer) }}" alt="Registration Certificate"

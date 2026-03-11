@@ -19,6 +19,7 @@ button {
 * {
     border-color: #d1d5db;
 }
+
 /**
     The lines above are intact.
     The lines below were added by maryUI installer.
@@ -57,4 +58,3 @@ button {
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
 }
-
