@@ -6,35 +6,7 @@
 @endphp
 <div class="fade-up bg-white p-6 rounded-xl shadow mb-2">
     <h3 class="text-2xl font-semibold mb-6">Purchase History</h3>
-
-    {{-- Desktop Table (hidden on mobile) --}}
-    <div class="hidden md:block rounded-xl overflow-hidden border border-gray-300">
-        <table class="table-auto border-collapse w-full">
-            <thead>
-                <tr class="bg-gray-200 text-left">
-                    <th class="border px-4 py-2">Purchase Date</th>
-                    <th class="border px-4 py-2">Plan</th>
-                    <th class="border px-4 py-2">Amount</th>
-                    <th class="border px-4 py-2">Payment Method</th>
-                    <th class="border px-4 py-2">Expiration Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($transaction as $t)
-                    <tr>
-                        <td class="border px-4 py-2">{{ $t->created_at->format('M d, Y') }}</td>
-                        <td class="border px-4 py-2">{{ ucwords($t->plan, '-') }}</td>
-                        <td class="border px-4 py-2">Rs. {{ number_format($t->amount) }}</td>
-                        <td class="border px-4 py-2">eSewa</td>
-                        <td class="border px-4 py-2">{{ $t->renewal_at->format('M d, Y') }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-
-    {{-- Mobile Cards (hidden on desktop) --}}
-    <div class="flex flex-col gap-4 md:hidden">
+    <div class="flex flex-col gap-4">
         @foreach ($transaction as $t)
             <div class="border border-gray-300 rounded-xl p-4 text-sm">
                 <div class="flex justify-between items-center mb-3">

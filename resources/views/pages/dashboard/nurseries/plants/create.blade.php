@@ -71,33 +71,28 @@
             @enderror
         </div>
 
-        {{-- Price --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+                Offer Price *
+            </label>
+            <input type="number" step="0.01" name="offer_price" value="{{ old('offer_price') }}"
+                class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('offer_price') border-red-500 @enderror"
+                required>
+            @error('offer_price')
+                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+            @enderror
+        </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Offer Price *
-                </label>
-                <input type="number" step="0.01" name="offer_price" value="{{ old('offer_price') }}"
-                    class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('offer_price') border-red-500 @enderror"
-                    required>
-                @error('offer_price')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Selling Price *
-                </label>
-                <input type="number" step="0.01" name="selling_price" value="{{ old('selling_price') }}"
-                    class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('selling_price') border-red-500 @enderror"
-                    required>
-                @error('selling_price')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+                Selling Price *
+            </label>
+            <input type="number" step="0.01" name="selling_price" value="{{ old('selling_price') }}"
+                class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('selling_price') border-red-500 @enderror"
+                required>
+            @error('selling_price')
+                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         {{-- Stock Quantity --}}
@@ -155,7 +150,8 @@
                 </option>
                 <option value="partial_shade" {{ old('sunlight_requirement') == 'partial_shade' ? 'selected' : '' }}>
                     Partial Shade</option>
-                <option value="full_shade" {{ old('sunlight_requirement') == 'full_shade' ? 'selected' : '' }}>Full Shade
+                <option value="full_shade" {{ old('sunlight_requirement') == 'full_shade' ? 'selected' : '' }}>Full
+                    Shade
                 </option>
             </select>
             @error('sunlight_requirement')
@@ -172,7 +168,8 @@
                 class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('water_requirement') border-red-500 @enderror">
                 <option value="" disabled selected>-- Select Option --</option>
                 <option value="low" {{ old('water_requirement') == 'low' ? 'selected' : '' }}>Low</option>
-                <option value="moderate" {{ old('water_requirement') == 'moderate' ? 'selected' : '' }}>Moderate</option>
+                <option value="moderate" {{ old('water_requirement') == 'moderate' ? 'selected' : '' }}>Moderate
+                </option>
                 <option value="high" {{ old('water_requirement') == 'high' ? 'selected' : '' }}>High</option>
             </select>
             @error('water_requirement')
@@ -189,8 +186,8 @@
                 class="flex items-center justify-between w-full border rounded-lg px-4 py-2 text-sm text-gray-700 cursor-pointer
                     hover:bg-gray-100 focus:ring-2 focus:ring-green-500 focus:outline-none @error('plant_image') border-red-500 @enderror">
                 <span id="plant-image-name">Choose file</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12v8m0-8l-3 3m3-3l3 3" />
                 </svg>

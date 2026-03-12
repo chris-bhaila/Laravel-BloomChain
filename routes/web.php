@@ -112,6 +112,6 @@ Route::middleware('auth')->group(function () {
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
-        return redirect()->route('login')->with('success', 'Logged out successfully!');
+        return redirect()->route('login');
     })->name('logout');
 });

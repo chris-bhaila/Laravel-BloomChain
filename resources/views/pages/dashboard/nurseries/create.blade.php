@@ -112,12 +112,12 @@
 
     <div class="flex justify-end gap-3">
         <a href="{{ route('nursery.show') }}"
-            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+            class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">
             Cancel
         </a>
         <button type="submit"
-            class="px-4 py-2 bg-green-500 text-white rounded border border-green-500
-                hover:bg-white hover:text-green-500 transition duration-300
+            class="px-4 py-2 bg-green-500 text-white rounded-lg border border-green-500
+                hover:bg-green-600 transition duration-300
                 focus:ring-2 focus:ring-green-500 focus:outline-none">
             Add Nursery
         </button>
