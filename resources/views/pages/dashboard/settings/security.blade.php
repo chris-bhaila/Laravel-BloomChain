@@ -9,7 +9,7 @@
     </a>
 
     <a href="{{ route('settings.loginHistory') }}"
-        @click.prevent="navigate('{{ route('settings.loginHistory') }}', 'settings.security.loginHistory')"
+        @click.prevent="navigate('{{ route('settings.loginHistory') }}', 'settings.security.loginHistory', 'Login History')"
         class="rounded-xl border-2 p-4 flex justify-between hover:bg-gray-200 cursor-pointer transition duration-150 ease-in-out">
         <p class="text-xl font-bold">Where You're Logged In</p>
         <p>></p>

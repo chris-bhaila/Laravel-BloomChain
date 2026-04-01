@@ -16,6 +16,7 @@ class Plant extends Model
         'name',
         'category',
         'description',
+        'location',
         'offer_price',
         'selling_price',
         'stock_quantity',

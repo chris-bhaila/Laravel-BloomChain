@@ -16,6 +16,10 @@ class NurseryController extends Controller
                 ->with('error', 'You already have a nursery.');
         }
 
+        if (request()->header('X-Dashboard-Navigate')) {
+            return view('pages.dashboard.nurseries.create');
+        }
+
         return view('pages.dashboard.sidebar', [
             'page' => 'nurseries.create',
         ]);

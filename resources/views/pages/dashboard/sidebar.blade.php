@@ -3,34 +3,72 @@
     $user = Auth::user();
     $nursery = Auth::user()->nursery;
 @endphp
-<x-app-layout title="Dashboard">
+<x-app-layout :title="ucfirst($page)">
     <style>
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(18px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .fade-up>* { animation: fadeUp 0.55s ease forwards; opacity: 0; }
-        .fade-up>*:nth-child(1)  { animation-delay: 0.05s; }
-        .fade-up>*:nth-child(2)  { animation-delay: 0.15s; }
-        .fade-up>*:nth-child(3)  { animation-delay: 0.25s; }
-        .fade-up>*:nth-child(4)  { animation-delay: 0.35s; }
-        .fade-up>*:nth-child(5)  { animation-delay: 0.45s; }
-        .fade-up>*:nth-child(6)  { animation-delay: 0.55s; }
-        .fade-up>*:nth-child(7)  { animation-delay: 0.65s; }
-        .fade-up>*:nth-child(8)  { animation-delay: 0.75s; }
-        .fade-up>*:nth-child(9)  { animation-delay: 0.85s; }
-        .fade-up>*:nth-child(10) { animation-delay: 0.95s; }
+
+        .fade-up>* {
+            animation: fadeUp 0.55s ease forwards;
+            opacity: 0;
+        }
+
+        .fade-up>*:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .fade-up>*:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .fade-up>*:nth-child(3) {
+            animation-delay: 0.25s;
+        }
+
+        .fade-up>*:nth-child(4) {
+            animation-delay: 0.35s;
+        }
+
+        .fade-up>*:nth-child(5) {
+            animation-delay: 0.45s;
+        }
+
+        .fade-up>*:nth-child(6) {
+            animation-delay: 0.55s;
+        }
+
+        .fade-up>*:nth-child(7) {
+            animation-delay: 0.65s;
+        }
+
+        .fade-up>*:nth-child(8) {
+            animation-delay: 0.75s;
+        }
+
+        .fade-up>*:nth-child(9) {
+            animation-delay: 0.85s;
+        }
+
+        .fade-up>*:nth-child(10) {
+            animation-delay: 0.95s;
+        }
     </style>
     <div x-data="dashboardApp()" class="flex h-screen">
 
         <!-- Mobile Backdrop Overlay -->
-        <div x-show="mobileSidebarOpen"
-            x-transition:enter="transition-opacity ease-out duration-300"
+        <div x-show="mobileSidebarOpen" x-transition:enter="transition-opacity ease-out duration-300"
             x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-            x-transition:leave="transition-opacity ease-in duration-200"
-            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-            @click="mobileSidebarOpen = false"
-            class="fixed inset-0 bg-black/40 z-30"
+            x-transition:leave="transition-opacity ease-in duration-200" x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0" @click="mobileSidebarOpen = false" class="fixed inset-0 bg-black/40 z-30"
             style="display: none;">
         </div>
 
@@ -43,11 +81,9 @@
 
             <!-- Header: Logo -->
             <div class="relative flex items-center h-14 px-3 shrink-0 justify-between">
-                <img src="{{ asset('images/BloomChainText.png') }}" alt="Logo"
-                    x-show="mobileSidebarOpen"
-                    x-transition:enter="transition-opacity duration-200"
-                    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                    x-transition:leave="transition-opacity duration-100"
+                <img src="{{ asset('images/BloomChainText.png') }}" alt="Logo" x-show="mobileSidebarOpen"
+                    x-transition:enter="transition-opacity duration-200" x-transition:enter-start="opacity-0"
+                    x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity duration-100"
                     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                     class="w-36 object-contain ml-3">
             </div>
@@ -61,7 +97,7 @@
 
                 <!-- Dashboard -->
                 <a href="{{ route('dashboard', ['page' => 'dashboard']) }}"
-                    @click.prevent="navigate('{{ route('dashboard', ['page' => 'dashboard']) }}', 'dashboard')"
+                    @click.prevent="navigate('{{ route('dashboard', ['page' => 'dashboard']) }}', 'dashboard', 'Dashboard')"
                     :class="[
                         'justify-start',
                         isActive('dashboard') ? 'text-black' : 'text-gray-500'
@@ -71,8 +107,8 @@
                         class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all"></span>
                     <svg xmlns="http://www.w3.org/2000/svg"
                         :class="isActive('dashboard') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
-                        class="w-7 h-7 shrink-0 transition-colors" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        class="w-7 h-7 shrink-0 transition-colors" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <rect width="7" height="9" x="3" y="3" rx="1" />
                         <rect width="7" height="5" x="14" y="3" rx="1" />
                         <rect width="7" height="9" x="14" y="12" rx="1" />
@@ -87,7 +123,7 @@
 
                 <!-- Profile -->
                 <a href="{{ route('dashboard', ['page' => 'profile']) }}"
-                    @click.prevent="navigate('{{ route('dashboard', ['page' => 'profile']) }}', 'profile')"
+                    @click.prevent="navigate('{{ route('dashboard', ['page' => 'profile']) }}', 'profile', 'Profile')"
                     :class="[
                         'justify-start',
                         isActive('profile') ? 'text-black' : 'text-gray-500'
@@ -97,10 +133,11 @@
                         class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all"></span>
                     <svg xmlns="http://www.w3.org/2000/svg"
                         :class="isActive('profile') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
-                        class="w-7 h-7 shrink-0 transition-all" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        class="w-7 h-7 shrink-0 transition-all" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <path d="M2 21a8 8 0 0 1 10.821-7.487" />
-                        <path d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
+                        <path
+                            d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
                         <circle cx="10" cy="8" r="5" />
                     </svg>
                     <span x-show="mobileSidebarOpen" x-transition
@@ -113,16 +150,18 @@
                 <!-- Nursery -->
                 @if ($nursery !== null)
                     <a href="{{ route('nursery.show') }}"
-                        @click.prevent="navigate('{{ route('nursery.show') }}', 'nurseries.nursery')"
+                        @click.prevent="navigate('{{ route('nursery.show') }}', 'nurseries.nursery', '{{ $nursery?->name }}')"
                         :class="[
                             'justify-start',
                             isActive('nurseries.nursery') ? 'text-black' : 'text-gray-500'
                         ]"
                         class="group flex items-center gap-3 px-4 py-2 rounded relative transition font-bold">
-                        <span :class="isActive('nurseries.nursery') ? 'bg-[#16714B]' : 'bg-transparent group-hover:bg-[#16714B]'"
+                        <span
+                            :class="isActive('nurseries.nursery') ? 'bg-[#16714B]' : 'bg-transparent group-hover:bg-[#16714B]'"
                             class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all"></span>
                         <svg xmlns="http://www.w3.org/2000/svg"
-                            :class="isActive('nurseries.nursery') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
+                            :class="isActive('nurseries.nursery') ? 'text-[#16714B]' :
+                                'text-gray-500 group-hover:text-[#16714B]'"
                             class="w-7 h-7 shrink-0 transition-colors" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                             <path d="M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1" />
@@ -142,7 +181,7 @@
 
                 <!-- Settings -->
                 <a href="{{ route('settings') }}"
-                    @click.prevent="navigate('{{ route('settings') }}', 'settings')"
+                    @click.prevent="navigate('{{ route('settings') }}', 'settings', 'Settings')"
                     :class="[
                         'justify-start',
                         isActive('settings') ? 'text-black' : 'text-gray-500'
@@ -152,9 +191,10 @@
                         class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all"></span>
                     <svg xmlns="http://www.w3.org/2000/svg"
                         :class="isActive('settings') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
-                        class="w-7 h-7 shrink-0 transition-all" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+                        class="w-7 h-7 shrink-0 transition-all" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path
+                            d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
                         <circle cx="12" cy="12" r="3" />
                     </svg>
                     <span x-show="mobileSidebarOpen" x-transition
@@ -168,15 +208,16 @@
                 <div class="flex-1"></div>
 
                 <!-- Subscription -->
-                @if($user->verification_status === 'verified')
+                @if ($user->verification_status === 'verified')
                     <a href="{{ route('subscription') }}"
-                        @click.prevent="navigate('{{ route('subscription') }}', 'payment.subscription')"
+                        @click.prevent="navigate('{{ route('subscription') }}', 'payment.subscription', 'Subscription')"
                         :class="[
                             'justify-start',
                             isActive('subscription') ? 'text-black' : 'text-gray-500'
                         ]"
                         class="group flex items-center gap-3 px-4 py-2 rounded relative transition font-bold">
-                        <span :class="isActive('subscription') ? 'bg-[#16714B]' : 'bg-transparent group-hover:bg-[#16714B]'"
+                        <span
+                            :class="isActive('subscription') ? 'bg-[#16714B]' : 'bg-transparent group-hover:bg-[#16714B]'"
                             class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all"></span>
                         <svg xmlns="http://www.w3.org/2000/svg"
                             :class="isActive('subscription') ? 'text-[#16714B]' : 'text-gray-500 group-hover:text-[#16714B]'"
@@ -198,11 +239,12 @@
                 <!-- Logout -->
                 <a href="#" onclick="event.preventDefault(); this.querySelector('form').submit();"
                     class="group flex items-center gap-3 px-4 py-2 rounded relative transition font-bold justify-start">
-                    <span class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all group-hover:bg-[#16714B]"></span>
+                    <span
+                        class="absolute left-0 top-0 h-full w-1.5 rounded-r transition-all group-hover:bg-[#16714B]"></span>
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="w-7 h-7 shrink-0 text-gray-500 group-hover:text-[#16714B] transition-all"
-                        fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" viewBox="0 0 24 24">
                         <path d="m16 17 5-5-5-5" />
                         <path d="M21 12H9" />
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -242,6 +284,7 @@
                 @include('pages.dashboard.' . $page, [
                     'nurseries' => $nurseries ?? null,
                     'nursery' => $nursery ?? null,
+                    'plant' => $plant ?? null,
                 ])
             </div>
         </main>
@@ -258,7 +301,7 @@
                     return this.currentPage === page;
                 },
 
-                navigate(url, page) {
+                navigate(url, page, title) {
                     if (this.loading) return;
                     this.loading = true;
                     this.mobileSidebarOpen = false;
@@ -268,49 +311,58 @@
                     bar.style.width = '60%';
 
                     fetch(url, {
-                        headers: {
-                            'X-Dashboard-Navigate': 'true',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        }
-                    })
-                    .then(r => {
-                        if (!r.ok) throw new Error('Navigation failed');
-                        return r.text();
-                    })
-                    .then(html => {
-                        const content = document.getElementById('main-content');
-                        content.innerHTML = html;
-                        this.currentPage = page;
-                        window.history.pushState({ page, url }, '', url);
-                        bar.style.width = '100%';
-                        setTimeout(() => {
-                            bar.classList.add('hidden');
-                            bar.style.width = '0%';
-                        }, 300);
-                    })
-                    .catch(() => {
-                        window.location.href = url;
-                    })
-                    .finally(() => {
-                        this.loading = false;
-                    });
+                            headers: {
+                                'X-Dashboard-Navigate': 'true',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute('content')
+                            }
+                        })
+                        .then(r => {
+                            if (!r.ok) throw new Error('Navigation failed');
+                            return r.text();
+                        })
+                        .then(html => {
+                            const content = document.getElementById('main-content');
+                            content.innerHTML = html;
+                            this.currentPage = page;
+                            document.title = title ?? page;
+                            window.history.pushState({
+                                page,
+                                url
+                            }, '', url);
+                            bar.style.width = '100%';
+                            setTimeout(() => {
+                                bar.classList.add('hidden');
+                                bar.style.width = '0%';
+                            }, 300);
+                        })
+                        .catch(() => {
+                            window.location.href = url;
+                        })
+                        .finally(() => {
+                            this.loading = false;
+                        });
                 }
             }))
         })
 
         window.addEventListener('pageshow', function(e) {
-            if (e.persisted) { window.location.reload(); }
+            if (e.persisted) {
+                window.location.reload();
+            }
         });
 
         window.addEventListener('popstate', (e) => {
             if (e.state && e.state.url) {
                 fetch(e.state.url, {
-                    headers: { 'X-Dashboard-Navigate': 'true' }
-                })
-                .then(r => r.text())
-                .then(html => {
-                    document.getElementById('main-content').innerHTML = html;
-                });
+                        headers: {
+                            'X-Dashboard-Navigate': 'true'
+                        }
+                    })
+                    .then(r => r.text())
+                    .then(html => {
+                        document.getElementById('main-content').innerHTML = html;
+                    });
             }
         });
     </script>

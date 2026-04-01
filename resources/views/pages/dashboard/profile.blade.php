@@ -9,7 +9,7 @@
 
     {{-- Avatar --}}
     @if ($user->avatar)
-        <img src="{{ $user->avatar }}" class="fade-up w-24 h-24 rounded-full mx-auto mb-5 border-4 border-white object-cover">
+        <img src="{{ $user->avatar_url }}" class="fade-up w-24 h-24 rounded-full mx-auto mb-5 border-4 border-white object-cover">
     @else
         <div class="fade-up w-24 h-24 rounded-full mx-auto mb-5 bg-green-800 flex items-center justify-center text-white text-5xl font-bold">
             {{ strtoupper(substr($user->name, 0, 1)) }}

@@ -35,15 +35,15 @@
 
         {{-- Location --}}
         <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">
-                Location
-            </label>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
             <select name="location"
-                class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('location') border-red-500 @enderror">
+                class="w-full border cursor-pointer rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('location') border-red-500 @enderror">
                 <option value="" disabled selected>-- Select Option --</option>
-                <option value="indoor" {{ old('location') == 'indoor' ? 'selected' : '' }}>Indoor</option>
-                <option value="outdoor" {{ old('location') == 'outdoor' ? 'selected' : '' }}>Outdoor</option>
-                <option value="both" {{ old('location') == 'both' ? 'selected' : '' }}>Both</option>
+                @foreach ($options->get('location', collect()) as $option)
+                    <option value="{{ $option->value }}" {{ old('location') == $option->value ? 'selected' : '' }}>
+                        {{ ucwords(str_replace('_', ' ', $option->value)) }}
+                    </option>
+                @endforeach
             </select>
             @error('location')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -52,19 +52,15 @@
 
         {{-- Category --}}
         <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">
-                Category
-            </label>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
             <select name="category"
-                class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('category') border-red-500 @enderror">
+                class="w-full border cursor-pointer rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('category') border-red-500 @enderror">
                 <option value="" disabled selected>-- Select Option --</option>
-                <option value="flowering" {{ old('category') == 'flowering' ? 'selected' : '' }}>Flowering</option>
-                <option value="succulents" {{ old('category') == 'succulents' ? 'selected' : '' }}>Succulents</option>
-                <option value="herbs" {{ old('category') == 'herbs' ? 'selected' : '' }}>Herbs</option>
-                <option value="trees" {{ old('category') == 'trees' ? 'selected' : '' }}>Trees</option>
-                <option value="aquatic" {{ old('category') == 'aquatic' ? 'selected' : '' }}>Aquatic</option>
-                <option value="bonsai" {{ old('category') == 'bonsai' ? 'selected' : '' }}>Bonsai</option>
-                <option value="foliage" {{ old('category') == 'foliage' ? 'selected' : '' }}>Foliage</option>
+                @foreach ($options->get('category', collect()) as $option)
+                    <option value="{{ $option->value }}" {{ old('category') == $option->value ? 'selected' : '' }}>
+                        {{ ucwords(str_replace('_', ' ', $option->value)) }}
+                    </option>
+                @endforeach
             </select>
             @error('category')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -110,49 +106,33 @@
 
         {{-- Best Season --}}
         <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">
-                Best Season
-            </label>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Best Season</label>
             <select name="best_season"
-                class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('best_season') border-red-500 @enderror">
+                class="w-full border cursor-pointer rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('best_season') border-red-500 @enderror">
                 <option value="" disabled selected>-- Select Option --</option>
-                <option value="summer" {{ old('best_season') == 'summer' ? 'selected' : '' }}>Summer</option>
-                <option value="autumn" {{ old('best_season') == 'autumn' ? 'selected' : '' }}>Autumn</option>
-                <option value="winter" {{ old('best_season') == 'winter' ? 'selected' : '' }}>Winter</option>
-                <option value="spring" {{ old('best_season') == 'spring' ? 'selected' : '' }}>Spring</option>
+                @foreach ($options->get('best_season', collect()) as $option)
+                    <option value="{{ $option->value }}" {{ old('best_season') == $option->value ? 'selected' : '' }}>
+                        {{ ucwords(str_replace('_', ' ', $option->value)) }}
+                    </option>
+                @endforeach
             </select>
             @error('best_season')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror
         </div>
 
-        {{-- Description --}}
-        <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">
-                Description
-            </label>
-            <textarea name="description" rows="4"
-                class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('description') border-red-500 @enderror">{{ old('description') }}</textarea>
-            @error('description')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-            @enderror
-        </div>
-
         {{-- Sunlight Requirement --}}
         <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">
-                Sunlight Requirement
-            </label>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Sunlight Requirement</label>
             <select name="sunlight_requirement"
-                class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('sunlight_requirement') border-red-500 @enderror">
+                class="w-full border cursor-pointer rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('sunlight_requirement') border-red-500 @enderror">
                 <option value="" disabled selected>-- Select Option --</option>
-                <option value="full_sun" {{ old('sunlight_requirement') == 'full_sun' ? 'selected' : '' }}>Full Sun
-                </option>
-                <option value="partial_shade" {{ old('sunlight_requirement') == 'partial_shade' ? 'selected' : '' }}>
-                    Partial Shade</option>
-                <option value="full_shade" {{ old('sunlight_requirement') == 'full_shade' ? 'selected' : '' }}>Full
-                    Shade
-                </option>
+                @foreach ($options->get('sunlight_requirement', collect()) as $option)
+                    <option value="{{ $option->value }}"
+                        {{ old('sunlight_requirement') == $option->value ? 'selected' : '' }}>
+                        {{ ucwords(str_replace('_', ' ', $option->value)) }}
+                    </option>
+                @endforeach
             </select>
             @error('sunlight_requirement')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -161,16 +141,16 @@
 
         {{-- Water Requirement --}}
         <div class="mb-6">
-            <label class="block text-sm font-medium text-gray-700 mb-1">
-                Water Requirement
-            </label>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Water Requirement</label>
             <select name="water_requirement"
-                class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('water_requirement') border-red-500 @enderror">
+                class="w-full border cursor-pointer rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('water_requirement') border-red-500 @enderror">
                 <option value="" disabled selected>-- Select Option --</option>
-                <option value="low" {{ old('water_requirement') == 'low' ? 'selected' : '' }}>Low</option>
-                <option value="moderate" {{ old('water_requirement') == 'moderate' ? 'selected' : '' }}>Moderate
-                </option>
-                <option value="high" {{ old('water_requirement') == 'high' ? 'selected' : '' }}>High</option>
+                @foreach ($options->get('water_requirement', collect()) as $option)
+                    <option value="{{ $option->value }}"
+                        {{ old('water_requirement') == $option->value ? 'selected' : '' }}>
+                        {{ ucwords(str_replace('_', ' ', $option->value)) }}
+                    </option>
+                @endforeach
             </select>
             @error('water_requirement')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -186,8 +166,8 @@
                 class="flex items-center justify-between w-full border rounded-lg px-4 py-2 text-sm text-gray-700 cursor-pointer
                     hover:bg-gray-100 focus:ring-2 focus:ring-green-500 focus:outline-none @error('plant_image') border-red-500 @enderror">
                 <span id="plant-image-name">Choose file</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12v8m0-8l-3 3m3-3l3 3" />
                 </svg>

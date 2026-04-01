@@ -10,21 +10,21 @@
 
     @if ($user->verification_status === 'verified')
         <a href="{{ route('editProfile') }}"
-        @click.prevent="navigate('{{ route('editProfile') }}', 'settings.editProfile')"
+        @click.prevent="navigate('{{ route('editProfile') }}', 'settings.editProfile', 'Edit Profile')"
             class="rounded-xl border-2 p-4 mb-2 flex justify-between hover:bg-gray-200 cursor-pointer transition duration-150 ease-in-out">
             <p class="text-xl font-bold">Edit Profile</p>
             <p>></p>
         </a>
     @endif
     <a href={{ route('security') }}
-        @click.prevent="navigate('{{ route('security') }}', 'settings.security')"
+        @click.prevent="navigate('{{ route('security') }}', 'settings.security', 'Security')"
         class="rounded-xl border-2 p-4 mb-2 flex justify-between hover:bg-gray-200 cursor-pointer transition duration-150 ease-in-out">
         <p class="text-xl font-bold">Security</p>
         <p>></p>
     </a>
     @if ($hasTransactions)
         <a href={{ route('purchaseHistory') }}
-            @click.prevent="navigate('{{ route('purchaseHistory') }}', 'settings.purchaseHistory')"
+            @click.prevent="navigate('{{ route('purchaseHistory') }}', 'settings.purchaseHistory', 'Purchase History')"
             class="rounded-xl border-2 p-4 flex justify-between hover:bg-gray-200 cursor-pointer transition duration-150 ease-in-out">
             <p class="text-xl font-bold">Purchase History</p>
             <p>></p>

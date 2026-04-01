@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="min-h-screen w-screen overflow-y-auto hide-scrollbar bg-green-950" style="scrollbar-width: none;">
+    <div class="min-h-screen w-full overflow-y-auto hide-scrollbar bg-green-950 overflow-x-hidden" style="scrollbar-width: none;">
 
         {{-- Login Panel --}}
         <div class="relative z-10 flex items-center px-8 py-2 bg-white/95 rounded-b-3xl justify-between"
@@ -74,20 +74,20 @@
                                     <p class="text-green-300/50 text-xs italic truncate mb-1">
                                         ({{ $plant->scientific_name }})</p>
                                     <div class="flex flex-wrap gap-1 mb-1">
-                                        @if ($plant->location)
+                                        {{-- @if ($plant->location)
                                             <span
-                                                class="text-xs bg-green-900/50 text-green-300 rounded-full px-1.5 py-0.5">{{ $plant->location }}</span>
-                                        @endif
+                                                class="text-xs bg-green-900/50 text-green-300 rounded-full px-1.5 py-0.5">{{ ucfirst($plant->location) }}</span>
+                                        @endif --}}
                                         @if ($plant->category)
                                             <span
-                                                class="text-xs bg-green-900/50 text-green-300 rounded-full px-1.5 py-0.5">{{ $plant->category }}</span>
+                                                class="text-xs bg-green-900/50 text-green-300 rounded-full px-1.5 py-0.5">{{ ucfirst($plant->category) }}</span>
                                         @endif
                                         @if ($plant->best_season)
                                             <span
-                                                class="text-xs bg-green-900/50 text-green-300 rounded-full px-1.5 py-0.5">{{ $plant->best_season }}</span>
+                                                class="text-xs bg-green-900/50 text-green-300 rounded-full px-1.5 py-0.5">{{ ucfirst($plant->best_season) }}</span>
                                         @endif
                                     </div>
-                                    <p class="text-green-300 text-sm font-semibold">Rs. {{ $plant->offer_price }}</p>
+                                    <p class="text-green-300 text-sm font-semibold"><span class="line-through">Rs. {{ number_format($plant->offer_price, 0) }}</span> Rs. {{ number_format($plant->selling_price, 0) }}</p>
                                 </div>
                             </div>
                         @endforeach

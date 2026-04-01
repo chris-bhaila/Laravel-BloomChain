@@ -21,7 +21,7 @@ class ProfileController extends Controller
             'name'    => ['required', 'string', 'max:255', 'regex:/^[\pL\s\-]+$/u'],
             'phone'   => ['nullable', 'regex:/^\+?[0-9]{7,15}$/'],
             'address' => ['nullable', 'string', 'max:255'],
-            'avatar'  => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048'],
+            'avatar'  => ['nullable', 'image', 'max:2048'],
         ]);
 
         if ($request->hasFile('avatar')) {
@@ -37,7 +37,7 @@ class ProfileController extends Controller
             $file = $request->file('avatar');
             $avatarName = $user->id . '_avatar.' . $file->getClientOriginalExtension();
             $file->storeAs($user->id, $avatarName, 'local');
-            $user->avatar = route('file.view', $avatarName);
+            $user->avatar = $avatarName;
         }
 
         $user->update([
@@ -50,20 +50,25 @@ class ProfileController extends Controller
         return redirect()->route('editProfile')->with('success', 'Profile updated successfully!');
     }
 
-    public function verify()
+    public function addInfo()
     {
-        if (Auth::user()->verification_status === 'verified') {
+        if (!empty($user->phone) && !empty($user->address)) {
             return redirect()->route('dashboard');
         }
 
+        // Check if it's a fetch navigation request
+        if (request()->header('X-Dashboard-Navigate')) {
+            return view('pages.dashboard.settings.additionalInfo');
+        }
+
         return view('pages.dashboard.sidebar', [
-            'page' => 'settings.verification',
+            'page' => 'settings.additionalInfo',
         ]);
     }
 
-    public function storeVerification(Request $request)
+    public function storeAdditionalInfo(Request $request)
     {
-        if (Auth::user()->verification_status === 'verified') {
+        if (!empty($user->phone) && !empty($user->address)) {
             return redirect()->route('dashboard');
         }
 
@@ -78,9 +83,8 @@ class ProfileController extends Controller
         Auth::user()->update([
             'phone'               => $request->phone,
             'address'             => $request->address,
-            'verification_status' => 'verified',
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Account verified successfully!');
+        return redirect()->route('dashboard')->with('success', 'Account updated successfully!');
     }
 }

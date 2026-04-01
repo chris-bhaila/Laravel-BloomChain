@@ -11,17 +11,19 @@
 
 <h1 class="text-2xl font-bold ml-2 my-2">Edit Profile</h1>
 
-<form method="POST" action="{{ route('editProfile.update') }}" class="fade-up bg-white shadow-lg rounded-xl p-6 space-y-5" enctype="multipart/form-data">
+<form method="POST" action="{{ route('editProfile.update') }}"
+    class="fade-up bg-white shadow-lg rounded-xl p-6 space-y-5" enctype="multipart/form-data">
     @csrf
 
     {{-- Avatar --}}
     <div class="mb-4 text-center">
+
         @if ($user->avatar)
-            <img src="{{ $user->avatar }}"
+            <img src="{{ $user->avatar_url }}"
                 class="fade-up w-30 h-30 rounded-full mx-auto mb-5 border-4 border-white-800 object-cover">
         @else
             <div class="w-30 h-30 rounded-full mx-auto mb-5 bg-green-800 fade-up
-                            flex items-center justify-center text-white text-5xl font-bold">
+                                    flex items-center justify-center text-white text-5xl font-bold">
                 {{ strtoupper(substr($user->name, 0, 1)) }}
             </div>
         @endif

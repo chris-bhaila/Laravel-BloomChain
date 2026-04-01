@@ -181,7 +181,7 @@
                             <p class="text-gray-400 text-sm mt-[0.5px]" x-text="plans[duration].one.billed">Billed $29.88 every year</p>
                             <p class="text-lg mt-1" x-html="plans[duration].one.save"></p>
                         </div>
-                        <button @click="navigate('{{ route('checkout') }}?plan=' + duration, 'payment.checkout')"
+                        <button @click="navigate('{{ route('checkout') }}?plan=' + duration, 'payment.checkout', 'Checkout')"
                             class="btn-slide w-full font-bold text-sm py-3 px-5 rounded-full text-white bg-gradient-to-br from-[#16714B] to-green-700 shadow-lg mb-6">
                             Get Premium
                         </button>

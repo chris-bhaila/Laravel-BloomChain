@@ -3,16 +3,18 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -75,5 +77,19 @@ class User extends Authenticatable
                     'session_id' => $session->id,
                 ];
             });
+    }
+    
+    public function getAvatarUrlAttribute(): string
+    {
+        if (!$this->avatar) return '';
+        if (filter_var($this->avatar, FILTER_VALIDATE_URL)) return $this->avatar;
+        return route('file.view', [$this->id, $this->avatar]);
+    }
+
+    public function getAdminAvatarUrlAttribute(): string
+    {
+        if (!$this->avatar) return '';
+        if (filter_var($this->avatar, FILTER_VALIDATE_URL)) return $this->avatar;
+        return route('admin.file.view', [$this->id, $this->avatar]);
     }
 }
