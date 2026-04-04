@@ -21,23 +21,6 @@
     {{ $nursery->description ?? 'No description available.' }}
 </div>
 
-{{-- Certificates --}}
-<div class="fade-up delay-1 mb-8 px-4">
-    <h2 class="text-lg font-semibold mb-3">Certificates</h2>
-    <div class="flex flex-row gap-4 rounded-xl p-4 shadow-md">
-        <div class="flex flex-col items-center">
-            <p class="text-xs text-gray-500 mb-1">Registration Certificate</p>
-            <img src="{{ route('file.view', [$nursery->user_id, $nursery->reg_cer]) }}" alt="Registration Certificate"
-                class="w-32 h-32 object-cover rounded shadow">
-        </div>
-        <div class="flex flex-col items-center">
-            <p class="text-xs text-gray-500 mb-1">PAN Certificate</p>
-            <img src="{{ route('file.view', [$nursery->user_id, $nursery->pan_cer]) }}" alt="PAN Certificate"
-                class="w-32 h-32 object-cover rounded shadow">
-        </div>
-    </div>
-</div>
-
 <h2 class="fade-up delay-3 text-xl font-semibold mb-4 px-4">Available Plants</h2>
 
 @if ($nursery->plants->count())
