@@ -26,8 +26,7 @@
                 Scientific Name *
             </label>
             <input type="text" name="scientific_name" value="{{ old('scientific_name') }}"
-                class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('scientific_name') border-red-500 @enderror"
-                required>
+                class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none @error('scientific_name') border-red-500 @enderror">
             @error('scientific_name')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror

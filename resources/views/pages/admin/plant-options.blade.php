@@ -57,7 +57,7 @@
                                 onsubmit="return confirm('Delete this option?')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-500 text-xs font-semibold">Delete</button>
+                                <button type="submit" class="text-red-500 text-md font-semibold"><i class="bi bi-trash"></i></button>
                             </form>
                         </div>
                     @endforeach
