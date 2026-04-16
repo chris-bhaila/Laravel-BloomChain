@@ -5,13 +5,13 @@
         <div class="relative h-28 overflow-hidden">
 
             <div class="absolute inset-0 bg-cover bg-center"
-                style="background-image: url('{{ asset('images/Login-bg-image.jpeg') }}');"></div>
+                style="background-image: url('{{ asset("images/Login-bg-image.jpeg") }}');"></div>
             <div class="absolute inset-0 bg-gradient-to-b from-green-950/30 to-green-950/85"></div>
 
             {{-- Login Panel pinned to top --}}
             <div class="absolute top-0 left-0 right-0 z-10 flex items-center px-4 justify-between">
                 <div class="flex flex-col items-center">
-                    <img src="{{ asset('images/BloomChain.png') }}" alt="Logo" class="h-20 w-auto object-contain">
+                    <img src="{{ asset('images/FNLTransparent.png') }}" alt="Logo" class="h-14 w-auto object-contain">
                 </div>
                 <a href="{{ route('google.redirect') }}"
                     class="flex items-center justify-center gap-3 px-3 py-2.5 bg-white border-[1.5px] border-green-100 text-green-900 rounded-full shadow-sm 

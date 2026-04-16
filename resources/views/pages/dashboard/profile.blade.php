@@ -96,19 +96,27 @@ $transaction = Auth::user()->transactions()->latest()->first();
 
 
     {{-- Certificates --}}
+    @if ($nursery !== null)
+    @if ($nursery->reg_cer !== null || $nursery->pan_cer !== null)
     <div class="fade-up delay-1 mb-8 px-4">
         <h2 class="text-lg font-semibold mb-3">Certificates</h2>
         <div class="flex flex-row gap-4 rounded-xl p-4 shadow-md">
+            @if ($nursery->reg_cer !== null)
             <div class="flex flex-col items-center">
                 <p class="text-xs text-gray-500 mb-1">Registration Certificate</p>
                 <img src="{{ route('file.view', [$nursery->user_id, $nursery->reg_cer]) }}" alt="Registration Certificate"
                     class="w-32 h-32 object-cover rounded shadow">
             </div>
+            @endif
+            @if ($nursery->pan_cer !== null)
             <div class="flex flex-col items-center">
                 <p class="text-xs text-gray-500 mb-1">PAN Certificate</p>
                 <img src="{{ route('file.view', [$nursery->user_id, $nursery->pan_cer]) }}" alt="PAN Certificate"
                     class="w-32 h-32 object-cover rounded shadow">
             </div>
+            @endif
         </div>
     </div>
+    @endif
+    @endif
 </div>

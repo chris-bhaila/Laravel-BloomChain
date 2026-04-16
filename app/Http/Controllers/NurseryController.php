@@ -49,13 +49,19 @@ class NurseryController extends Controller
             'pan-cer.required' => 'PAN certificate is required.',
         ]);
 
-        $regCerFile = $request->file('reg-cer');
-        $regCerName = $user . '_reg_cer.' . $regCerFile->getClientOriginalExtension();
-        $regCerFile->storeAs($user, $regCerName, 'local');
+        $regCerName = null;
+        if ($request->hasFile('reg-cer')) {
+            $regCerFile = $request->file('reg-cer');
+            $regCerName = $user . '_reg_cer.' . $regCerFile->getClientOriginalExtension();
+            $regCerFile->storeAs($user, $regCerName, 'local');
+        }
 
-        $panCerFile = $request->file('pan-cer');
-        $panCerName = $user . '_pan_cer.' . $panCerFile->getClientOriginalExtension();
-        $panCerFile->storeAs($user, $panCerName, 'local');
+        $panCerName = null;
+        if ($request->hasFile('pan-cer')) {
+            $panCerFile = $request->file('pan-cer');
+            $panCerName = $user . '_pan_cer.' . $panCerFile->getClientOriginalExtension();
+            $panCerFile->storeAs($user, $panCerName, 'local');
+        }
 
         Nursery::create([
             'user_id'       => Auth::id(),

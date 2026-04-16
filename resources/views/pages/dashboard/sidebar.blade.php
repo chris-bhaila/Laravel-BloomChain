@@ -80,8 +80,8 @@
             style="box-shadow: -2px 0px 15px rgba(0,0,0,0.25);">
 
             <!-- Header: Logo -->
-            <div class="relative flex items-center h-14 px-3 shrink-0 justify-between">
-                <img src="{{ asset('images/BloomChainText.png') }}" alt="Logo" x-show="mobileSidebarOpen"
+            <div class="relative flex items-center h-14 px-3 my-2 shrink-0 justify-between">
+                <img src="{{ asset('images/FloraNepalHorizontal.png') }}" alt="Logo" x-show="mobileSidebarOpen"
                     x-transition:enter="transition-opacity duration-200" x-transition:enter-start="opacity-0"
                     x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity duration-100"
                     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
@@ -271,7 +271,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
-                <img src="{{ asset('images/BloomChainText.png') }}" alt="Logo" class="w-32 object-contain">
+                <img src="{{ asset('images/FloraNepalHorizontal.png') }}" alt="Logo" class="w-40 my-2 object-contain">
             </div>
 
             <!-- Loading indicator -->
